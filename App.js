@@ -10,7 +10,7 @@ import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect , useState} from 'react';
 import AsyncStorage from "@react-native-async-storage/async-storage"
-
+import BottomTabNavigation from './ navigation/BottomTabNavigation';
 
 SplashScreen.preventAutoHideAsync();
 const Stack = createNativeStackNavigator();
@@ -56,6 +56,13 @@ export default function App() {
           name="OnboardingStarter"
           component={OnboardingStarter}
           options={{
+            headerShown:false
+          }}
+        />
+        <Stack.Screen
+          name = "BottomTabNavigation"
+          component={BottomTabNavigation}
+          options= {{
             headerShown:false
           }}
         />

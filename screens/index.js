@@ -6,6 +6,10 @@ import OTPVerification from "./OTPVerification";
 import Register from "./Register";
 import ResetPassword from "./ResetPassword";
 import SuccessVerification from "./SuccessVerification";
+import Profile from "./Profile";
+import MedicationInfo from "./MedicationInfo";
+import Search from "./Search";
+import Report from "./Report";
 
 
 export {
@@ -16,5 +20,9 @@ export {
     OTPVerification,
     Register,
     ResetPassword,
-    SuccessVerification
+    SuccessVerification,
+    Profile,
+    MedicationInfo,
+    Search,
+    Report
 }

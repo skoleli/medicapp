@@ -93,7 +93,7 @@ const Login = ({ navigation }) => {
                     <Button
                         title="LOGIN"
                         filled
-                        onPress={() => navigation.navigate('Register')}
+                        onPress={() => navigation.navigate('BottomTabNavigation')}
                         style={{
                             width: '100%',
                         }}
