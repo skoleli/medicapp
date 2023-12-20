@@ -3,9 +3,11 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import PageContainer from '../components/PageContainer'
 import { COLORS, SIZES, FONTS } from '../constants'
-import { MaterialIcons } from '@expo/vector-icons'
+import { MaterialIcons, AntDesign } from '@expo/vector-icons'
 import { medicationInfos } from '../constants/data'
 import MedicationCard from '../components/MedicationCard'
+import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
+
 
 const MedicationInfo = ({ navigation }) => {
     function renderHeader() {
@@ -18,7 +20,7 @@ const MedicationInfo = ({ navigation }) => {
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('Home Screen')}
                     style={{
                         height: 44,
                         width: 44,
@@ -34,32 +36,161 @@ const MedicationInfo = ({ navigation }) => {
                         color={COLORS.black}
                     />
                 </TouchableOpacity>
+
                 <Text style={{ ...FONTS.h4 }}>Medications</Text>
+
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('Search')}
+                    style={{
+                        height: 44,
+                        width: 44,
+                        borderRadius: 4,
+                        backgroundColor: COLORS.secondaryWhite,
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}
+                >
+                    <AntDesign
+                        name="search1"
+                        size={24}
+                        color={COLORS.black}
+                    />
+
+                </TouchableOpacity>
             </View>
         )
     }
 
     function renderContent() {
         return (
-            <ScrollView>
-                {medicationInfos.map((medicationInfo, index) => (
-                    <MedicationCard
-                        key={index}
-                        name={medicationInfo.name}
-                        description={medicationInfo.description}
-                    />
-                ))}
-            </ScrollView>
+            <View>
+                <ScrollView>
+                    {medicationInfos.map((medicationInfo, index) => (
+                        <MedicationCard
+                            key={index}
+                            name={medicationInfo.name}
+                            description={medicationInfo.description}
+                        />
+                    ))}
+                </ScrollView>
+                <View
+                    style={{
+                        flexDirection: 'column'
+                    }}
+                >
+                    <View style={{ flexDirection: 'row', justifyContent: 'space-evenly' }}>
+                        <View
+                            style={{
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginBottom: 10,
+                                borderRadius: 8,
+                                height: 74,
+                                width: 110,
+                                borderColor: COLORS.secondaryWhite,
+                                borderWidth: 2,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    ...FONTS.body3,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                10
+                            </Text>
+                            <Text
+                                style={{
+                                    ...FONTS.body4,
+                                }}
+                            >
+                                Total Used
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginBottom: 10,
+                                borderRadius: 8,
+                                height: 74,
+                                width: 110,
+                                borderColor: COLORS.secondaryWhite,
+                                borderWidth: 2,
+                            }}
+                        >
+                            <Text
+                                style={{
+                                    ...FONTS.body3,
+                                    fontWeight: 'bold',
+                                }}
+                            >
+                                05
+                            </Text>
+                            <Text
+                                style={{
+                                    ...FONTS.body4,
+                                }}
+                            >
+                                Current
+                            </Text>
+                        </View>
+                        <View
+                            style={{
+                                flexDirection: 'column',
+                                justifyContent: 'center',
+                                alignItems: 'center',
+                                marginBottom: 10,
+                                borderRadius: 8,
+                                height: 74,
+                                width: 110,
+                                borderColor: COLORS.secondaryWhite,
+                                borderWidth: 2,
+                            }}
+                        >
+                            <TouchableOpacity
+                                onPress={() => navigation.navigate('Report')}
+                                style={{
+                                    height: 74,
+                                    width: 110,
+                                    borderRadius: 4,
+                                    backgroundColor: COLORS.White,
+                                    alignItems: 'center',
+                                    justifyContent: 'center',
+                                }}
+                            >
+                                <FontAwesome5
+                                    name="file-medical"
+                                    size={18}
+                                    color={COLORS.black}
+                                />
+                                <Text
+                                    style={{
+                                        ...FONTS.body4,
+                                    }}
+                                >
+                                    Get Report
+                                </Text>
+
+                            </TouchableOpacity>
+
+                        </View>
+                    </View>
+                </View>
+            </View>
         )
     }
+
     return (
-        
-        <SafeAreaView style={{ flex: 1}}>
+
+        <SafeAreaView style={{ flex: 1 }}>
             <PageContainer>
                 <View
                     style={{
-                        marginHorizontal: 22,
-                        marginBottom: 120
+                        marginHorizontal: 10,
+                        marginBottom:330
                     }}
                 >
                     {renderHeader()}

@@ -31,7 +31,7 @@ const screenOptions = {
 }
 const BottomTabNavigation = () => {
     return (
-        <Tab.Navigator initialRouteName='Home' screenOptions={screenOptions}>
+        <Tab.Navigator initialRouteName='Home Screen' screenOptions={screenOptions}>
             <Tab.Screen
                 name="Medication Information"
                 component={MedicationInfo}
@@ -51,28 +51,9 @@ const BottomTabNavigation = () => {
                     },
                 }}
             />
-            <Tab.Screen
-                name="Search"
-                component={Search}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <AntDesign
-                                name="search1"
-                                size={24}
-                                color={
-                                    focused
-                                        ? COLORS.primary
-                                        : COLORS.secondaryBlack
-                                }
-                            />
-                        )
-                    },
-                }}
-            />
 
             <Tab.Screen
-                name="Home"
+                name="Home Screen"
                 component={Home}
                 options={{
                     tabBarIcon: ({ focused }) => {
@@ -97,26 +78,6 @@ const BottomTabNavigation = () => {
                                     color={COLORS.white}
                                 />
                             </View>
-                        )
-                    },
-                }}
-            />
-
-            <Tab.Screen
-                name="Report"
-                component={Report}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <FontAwesome5
-                                name="file-medical"
-                                size={24}
-                                color={
-                                    focused
-                                        ? COLORS.primary
-                                        : COLORS.secondaryBlack
-                                }
-                            />
                         )
                     },
                 }}

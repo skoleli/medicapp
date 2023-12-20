@@ -55,7 +55,7 @@ const Profile = ({ navigation }) => {
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Home')}
+                    onPress={() => navigation.navigate('Home Screen')}
                     style={{
                         height: 44,
                         width: 44,
@@ -105,37 +105,6 @@ const Profile = ({ navigation }) => {
                         marginVertical: SIZES.padding,
                     }}
                 >
-                </View>
-            </View>
-        )
-    }
-
-    function renderFeatures() {
-        return (
-            <View
-                style={{
-                    flexDirection: 'row',
-                    justifyContent: 'space-evenly',
-                    // marginVertical: 22,
-                }}
-            >
-                <View
-                    style={{
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text style={{ ...FONTS.h1 }}>05</Text>
-                    <Text style={{ ...FONTS.body3 }}>Currently Using</Text>
-                </View>
-                <View
-                    style={{
-                        flexDirection: 'column',
-                        alignItems: 'center',
-                    }}
-                >
-                    <Text style={{ ...FONTS.h1 }}>15</Text>
-                    <Text style={{ ...FONTS.body3 }}>Total</Text>
                 </View>
             </View>
         )
@@ -247,7 +216,6 @@ const Profile = ({ navigation }) => {
                 }}>
                     {renderHeader()}
                     {renderProfile()}
-                    {renderFeatures()}
                     {renderUserInfo()}
                     {renderSettings()}
                 </View>

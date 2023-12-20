@@ -87,6 +87,7 @@ const MedicationCard = (props) => {
                         }}
                     >
                         Details
+                        {/* TODO: add details screen */}
                     </Text>
                 </TouchableOpacity>
             </View>

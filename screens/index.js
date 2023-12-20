@@ -9,7 +9,9 @@ import SuccessVerification from "./SuccessVerification";
 import Profile from "./Profile";
 import MedicationInfo from "./MedicationInfo";
 import Search from "./Search";
+import Notification from "./Notification";
 import Report from "./Report";
+import AddMedication from "./AddMedication"
 
 
 export {
@@ -24,5 +26,7 @@ export {
     Profile,
     MedicationInfo,
     Search,
-    Report
+    Report,
+    Notification,
+    AddMedication
 }

@@ -45,30 +45,42 @@ export const donors = [
     },
 ]
 
-export const categories = [
+export const intakeList = [
     {
-        icon: icons.categoryIcon1,
-        title: 'Find Donors',
+        id:'1',
+        name: 'med1',
+        reminder: '5.00',
+        dosage: '1 pill',
     },
     {
-        icon: icons.categoryIcon2,
-        title: 'Donates',
+        id:'2',
+        name: 'med2',
+        reminder: '5.00',
+        dosage: '1 pill',
     },
     {
-        icon: icons.categoryIcon3,
-        title: 'Order Blood',
+        id:'3',
+        name: 'med3',
+        reminder: '5.00',
+        dosage: '1 pill',
     },
     {
-        icon: icons.categoryIcon4,
-        title: 'Assistant',
+        id:'4',
+        name: 'med4',
+        reminder: '5.00',
+        dosage: '1 pill',
     },
     {
-        icon: icons.categoryIcon5,
-        title: 'Report',
+        id:'5',
+        name: 'med5',
+        reminder: '5.00',
+        dosage: '1 pill',
     },
     {
-        icon: icons.categoryIcon6,
-        title: 'Campain',
+        id:'6',
+        name: 'med6',
+        reminder: '5.00',
+        dosage: '1 pill',
     },
 ]
 
@@ -96,38 +108,5 @@ export const medicationInfos = [
     {
         name: 'Med6',
         description: 'Lorem ipsum dolor',
-    },
-]
-
-export const features = [
-    {
-        id: '1',
-        substance: 'Glucose',
-        volume: '6 mmol/L',
-    },
-    {
-        id: '2',
-        substance: 'Cholesterol',
-        volume: '6.2 mmol/L',
-    },
-    {
-        id: '3',
-        substance: 'Bilirubin',
-        volume: '12 mmol/L',
-    },
-    {
-        id: '4',
-        substance: 'RBC',
-        volume: '3.6 ml/L',
-    },
-    {
-        id: '5',
-        substance: 'MCV',
-        volume: '102 fl',
-    },
-    {
-        id: '6',
-        substance: '276 bL',
-        volume: 'Platelets',
     },
 ]
