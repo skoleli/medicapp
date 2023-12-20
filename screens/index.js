@@ -12,6 +12,7 @@ import Search from "./Search";
 import Notification from "./Notification";
 import Report from "./Report";
 import AddMedication from "./AddMedication"
+import MedicineDetail from "./MedicineDetail";
 
 
 export {
@@ -28,5 +29,6 @@ export {
     Search,
     Report,
     Notification,
-    AddMedication
+    AddMedication,
+    MedicineDetail
 }

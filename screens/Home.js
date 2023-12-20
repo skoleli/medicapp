@@ -80,7 +80,7 @@ const Home = ({navigation}) => {
             <PageContainer>
                 <View style={{
                     marginHorizontal: 10,
-                    marginBottom:200
+                    marginBottom:175
                 }}>
                     {renderHeader()}
                     {renderIntakes()}

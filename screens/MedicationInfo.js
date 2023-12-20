@@ -31,6 +31,7 @@ const MedicationInfo = ({ navigation }) => {
                     }}
                 >
                     <MaterialIcons
+                        navigation={navigation}
                         name="keyboard-arrow-left"
                         size={24}
                         color={COLORS.black}
@@ -67,9 +68,11 @@ const MedicationInfo = ({ navigation }) => {
                 <ScrollView>
                     {medicationInfos.map((medicationInfo, index) => (
                         <MedicationCard
+                            navigation={navigation}
                             key={index}
                             name={medicationInfo.name}
                             description={medicationInfo.description}
+                            parent = 'info'
                         />
                     ))}
                 </ScrollView>

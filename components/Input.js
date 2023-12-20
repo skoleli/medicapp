@@ -23,6 +23,7 @@ const Input = (props) => {
                     style={styles.input}
                     placeholder={props.placeholder}
                     placeholderTextColor={COLORS.black}
+                    
                 />
             </View>
             {props.errorText && (

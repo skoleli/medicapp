@@ -6,7 +6,7 @@ import { TouchableOpacity } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
 
 
-const MedicationCard = (props) => {
+const MedicationCard = ({parent, name, description, navigation}) => {
     return (
         <View
             style={{
@@ -47,7 +47,7 @@ const MedicationCard = (props) => {
                         fontWeight: 500,
                     }}
                 >
-                    {props.name}
+                    {name}
                 </Text>
                 <Text
                     style={{
@@ -66,7 +66,7 @@ const MedicationCard = (props) => {
                         marginVertical: 2,
                     }}
                 >
-                    {props.description}
+                    {description}
                 </Text>
             </View>
 
@@ -78,8 +78,8 @@ const MedicationCard = (props) => {
                 }}
             >
                 <FontAwesome5 name ='book-medical' size={50} color = {COLORS.primary} />
-                {/* TODO: add med details */}
-                <TouchableOpacity onPress={props.onPress}>
+
+                <TouchableOpacity onPress={()=> (navigation.navigate('MedicineDetail')  )}>
                     <Text
                         style={{
                             ...FONTS.h4,
@@ -87,7 +87,6 @@ const MedicationCard = (props) => {
                         }}
                     >
                         Details
-                        {/* TODO: add details screen */}
                     </Text>
                 </TouchableOpacity>
             </View>

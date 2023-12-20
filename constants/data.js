@@ -49,37 +49,37 @@ export const intakeList = [
     {
         id:'1',
         name: 'med1',
-        reminder: '5.00',
+        reminder: '5:00',
         dosage: '1 pill',
     },
     {
         id:'2',
         name: 'med2',
-        reminder: '5.00',
+        reminder: '5:00',
         dosage: '1 pill',
     },
     {
         id:'3',
         name: 'med3',
-        reminder: '5.00',
+        reminder: '5:00',
         dosage: '1 pill',
     },
     {
         id:'4',
         name: 'med4',
-        reminder: '5.00',
+        reminder: '5:00',
         dosage: '1 pill',
     },
     {
         id:'5',
         name: 'med5',
-        reminder: '5.00',
+        reminder: '5:00',
         dosage: '1 pill',
     },
     {
         id:'6',
         name: 'med6',
-        reminder: '5.00',
+        reminder: '5:00',
         dosage: '1 pill',
     },
 ]

@@ -5,7 +5,8 @@ import { createNativeStackNavigator} from "@react-navigation/native-stack";
 import { StyleSheet, Text, View } from 'react-native';
 import { Home, Login, OTPVerification, 
   OnboardingStarter, Register, SuccessVerification,
-  ResetPassword, GetStarted, MedicationInfo, Search, Report, Profile, AddMedication, Notification } from './screens';
+  ResetPassword, GetStarted, MedicationInfo, Search, Report, Profile, AddMedication, Notification,
+  MedicineDetail } from './screens';
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
 import { useCallback, useEffect , useState} from 'react';
@@ -151,8 +152,15 @@ export default function App() {
           }}
         />
         <Stack.Screen
-          name="AddMedication"
+          name="AddMedicine"
           component={AddMedication}
+          options={{
+            headerShown:false
+          }}
+        />
+        <Stack.Screen
+          name="MedicineDetail"
+          component={MedicineDetail}
           options={{
             headerShown:false
           }}

@@ -81,9 +81,11 @@ const Report = ({ navigation }) => {
                 <ScrollView>
                     {medicationInfos.map((medicationInfo, index) => (
                         <MedicationCard
+                            navigation={navigation}
                             key={index}
                             name={medicationInfo.name}
                             description={medicationInfo.description}
+                            parent = 'report'
                         />
                     ))}
 
