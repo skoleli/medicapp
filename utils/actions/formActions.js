@@ -16,5 +16,7 @@ export const validateInput = (inputId, inputValue) => {
         return validateEmail(inputId, inputValue)
     } else if (inputId === 'password') {
         return validatePassword(inputId, inputValue)
+    }else if (inputId === 'passwordConfirm') {
+        return validatePassword(inputId, inputValue)
     }
 }

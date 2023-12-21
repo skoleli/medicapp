@@ -14,7 +14,7 @@ import {
 import { COLORS, FONTS, SIZES, icons, images } from '../constants'
 import * as Location from 'expo-location'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Profile = ({ navigation }) => {
     const [address, setAddress] = useState('Loading...')
@@ -191,7 +191,15 @@ const Profile = ({ navigation }) => {
                         alignItems: 'center',
                         marginVertical: 12,
                     }}
-                    onPress={() => console.log('Pressed')}
+                    onPress={async() => {
+                        try{
+                            await AsyncStorage.removeItem('token')
+                            await AsyncStorage.removeItem('user_id')
+                            navigation.navigate('Login')
+                        }catch(error){
+                            console.error('error logging out:', error)
+                        }
+                    }}
                     // TODO: add log out function
                 >
                     <AntDesign name="logout" size={24} color={COLORS.primary} />

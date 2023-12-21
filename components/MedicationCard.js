@@ -79,7 +79,7 @@ const MedicationCard = ({parent, name, description, navigation}) => {
             >
                 <FontAwesome5 name ='book-medical' size={50} color = {COLORS.primary} />
 
-                <TouchableOpacity onPress={()=> (navigation.navigate('MedicineDetail')  )}>
+                <TouchableOpacity onPress={()=> (navigation.navigate('MedicineDetail'))}>
                     <Text
                         style={{
                             ...FONTS.h4,

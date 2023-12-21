@@ -1,32 +1,88 @@
-import { View, Text, ScrollView, Image, TouchableOpacity } from 'react-native'
+import { View, Text, ScrollView, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useCallback, useReducer } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import PageContainer from '../components/PageContainer'
 import { FONTS, COLORS, SIZES, images } from '../constants'
-import { MaterialIcons, FontAwesome, Fontisto } from '@expo/vector-icons'
+import { MaterialIcons, FontAwesome, Fontisto, AntDesign, FontAwesome5 } from '@expo/vector-icons'
 import Input from '../components/Input'
 import Button from '../components/Button'
 import { reducer } from '../utils/reducers/formReducers'
 import { validateInput } from '../utils/actions/formActions'
+import { MultipleSelectList } from 'react-native-dropdown-select-list'
+import { useState } from 'react'
+import Env from '../Env'
 
 const initialState = {
+    inputValues: {  // Include inputValues property
+        fullName: '',
+        email: '',
+        password: '',
+        passwordConfirm: '',
+    },
     inputValidities: {
         email: false,
         password: false,
+        passwordConfirm: false,
     },
     formIsValid: false,
 }
 
+
 const Register = ({ navigation }) => {
     const [formState, dispatchFormState] = useReducer(reducer, initialState)
+    const [selectedAllergies, setSelectedAllergies] = useState([])
 
     const inputChangedHandler = useCallback(
         (inputId, inputValue) => {
             const result = validateInput(inputId, inputValue)
-            dispatchFormState({ inputId, validationResult: result })
+            dispatchFormState({ inputId, inputValue, validationResult: result }) // Include inputValue
         },
         [dispatchFormState]
     )
+    fauxAllergies = [
+        { key: 1, value: 'Substance1' },
+        { key: 2, value: 'Substance2' },
+        { key: 3, value: 'Substance3' },
+        { key: 4, value: 'Substance4' },
+        { key: 5, value: 'Substance5' },
+        { key: 6, value: 'Substance6' },
+    ]
+
+    const handleRegister = async () => {
+        if (!formState.formIsValid) {
+            Alert.alert('Validation Error', 'Please fill in all fields.')
+            return false;
+        }
+        const requestData = {
+            name: formState.inputValues.fullName,
+            email: formState.inputValues.email,
+            password: formState.inputValues.password,
+            password_confirm: formState.inputValues.passwordConfirm,
+            // allergies: 
+        }
+        try {
+            const signupUrl = `${Env.HOST}signup`
+            const response = await fetch(signupUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            }).catch((err)=>{console.log(err)})
+
+            if (response.ok) {
+                return true;
+            } else {
+                const errorData = await response.json();
+                Alert.alert('Registration Failed', errorData.message || 'An error occurred during registration.');
+                return false;
+            }
+        } catch (error) {
+            console.error('Registration error:', error.message);
+            Alert.alert('Registration Failed', 'An error occurred during registration. Please try again later.');
+            return false;
+        }
+    }
 
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -102,42 +158,40 @@ const Register = ({ navigation }) => {
                                 secureTextEntry
                             />
                             <Input
-                                icon="phone"
+                                icon="lock"
                                 iconPack={FontAwesome}
-                                id="phoneNumber"
+                                id="passwordConfirm"
                                 onInputChanged={inputChangedHandler}
                                 errorText={
-                                    formState.inputValidities['phoneNumber']
+                                    formState.inputValidities['passwordConfirm']
                                 }
-                                placeholder="Enter your phone number"
+                                autoCapitalize="none"
+                                placeholder="Confirm your password"
+                                secureTextEntry
+                            />
+                            <MultipleSelectList
+                                setSelected={(val) => setSelectedAllergies(val)}
+                                data={fauxAllergies}
+                                save="value"
+                                boxStyles={{ borderColor: COLORS.primary, backgroundColor: COLORS.gray, borderRadius: 12, borderWidth: 1 }}
+                                dropdownStyles={{ borderColor: COLORS.primary, backgroundColor: COLORS.gray }}
+                                fontFamily="regular"
+                                placeholder="   Select your allergies"
+                                searchicon={<AntDesign name='search1' color={COLORS.primary} size={14} />}
+                                arrowicon={<FontAwesome5 name='chevron-down' color={COLORS.primary} size={18} />}
+                                closeicon={<Fontisto name='close-a' color={COLORS.primary} size={14} />}
                             />
 
-                            <Input
-                                icon="blood-drop"
-                                iconPack={Fontisto}
-                                id="bloodType"
-                                onInputChanged={inputChangedHandler}
-                                errorText={
-                                    formState.inputValidities['bloodType']
-                                }
-                                placeholder="Enter your blood type"
-                            />
-
-                            <Input
-                                icon="location-on"
-                                iconPack={MaterialIcons}
-                                id="location"
-                                onInputChanged={inputChangedHandler}
-                                errorText={
-                                    formState.inputValidities['location']
-                                }
-                                placeholder="Enter your location"
-                            />
                         </View>
                         <Button
                             title="REGISTER"
                             filled
-                            onPress={() => navigation.navigate('Home Screen')}
+                            onPress={async () => {
+                                const nav = await handleRegister()===true ? 'SuccessVerification': '';
+                                if (nav!=''){
+                                    navigation.navigate(nav)
+                                }
+                            }}
                             style={{
                                 width: '100%',
                             }}

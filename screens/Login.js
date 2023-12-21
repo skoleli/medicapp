@@ -8,8 +8,16 @@ import Input from '../components/Input'
 import Button from '../components/Button'
 import { reducer } from '../utils/reducers/formReducers'
 import { validateInput } from '../utils/actions/formActions'
+import { useState } from 'react'
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import Env from '../Env'
+
 
 const initialState = {
+    inputValues:{
+        email:'',
+        password:'',
+    },
     inputValidities: {
         email: false,
         password: false,
@@ -17,15 +25,56 @@ const initialState = {
     formIsValid: false,
 }
 const Login = ({ navigation }) => {
+    const [accessToken, setAccessToken] = useState('')
     const [formState, dispatchFormState] = useReducer(reducer, initialState)
 
     const inputChangedHandler = useCallback(
         (inputId, inputValue) => {
             const result = validateInput(inputId, inputValue)
-            dispatchFormState({ inputId, validationResult: result })
+            dispatchFormState({ inputId, inputValue, validationResult: result })
         },
         [dispatchFormState]
     )
+
+    const handleLogin = async() => {
+        if (!formState.formIsValid) {
+            Alert.alert('Validation Error', 'Please fill in all fields.')
+            return false;
+        }
+
+        const requestData = {
+            email: formState.inputValues.email,
+            password: formState.inputValues.password,
+        }
+
+        try {
+            const loginUrl = `${Env.HOST}login`
+            const response = await fetch(loginUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(requestData),
+            }).catch((err)=>{console.log(err)})
+
+            if (response.ok) {
+                const responseData = await response.json();
+                
+                await AsyncStorage.setItem('token', responseData['token']).catch((error)=>{console.log(error)})
+                await AsyncStorage.setItem('user_id', String(responseData['user_id'])).catch((error)=>{console.log(error)})
+                return true;
+            } else {
+                const errorData = await response.json();
+                Alert.alert('Login Failed', errorData.message || 'An error occurred during logging in.');
+                return false;
+            }
+        } catch (error) {
+            console.error('Login error:', error.message);
+            Alert.alert('Login Failed', 'An error occurred during logging in. Please try again later.');
+            return false;
+        }
+    }
+
 
     return (
         <SafeAreaView
@@ -93,7 +142,12 @@ const Login = ({ navigation }) => {
                     <Button
                         title="LOGIN"
                         filled
-                        onPress={() => navigation.navigate('BottomTabNavigation')}
+                        onPress={ async () => {
+                            const success = await handleLogin()
+                            if (success===true){
+                                navigation.navigate('BottomTabNavigation')
+                            }
+                        }}
                         style={{
                             width: '100%',
                         }}
