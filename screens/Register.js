@@ -61,7 +61,7 @@ const Register = ({ navigation }) => {
             // allergies: 
         }
         try {
-            const signupUrl = `${Env.HOST}signup`
+            const signupUrl = `${Env.HOST}/signup`
             const response = await fetch(signupUrl, {
                 method: 'POST',
                 headers: {
@@ -168,18 +168,6 @@ const Register = ({ navigation }) => {
                                 autoCapitalize="none"
                                 placeholder="Confirm your password"
                                 secureTextEntry
-                            />
-                            <MultipleSelectList
-                                setSelected={(val) => setSelectedAllergies(val)}
-                                data={fauxAllergies}
-                                save="value"
-                                boxStyles={{ borderColor: COLORS.primary, backgroundColor: COLORS.gray, borderRadius: 12, borderWidth: 1 }}
-                                dropdownStyles={{ borderColor: COLORS.primary, backgroundColor: COLORS.gray }}
-                                fontFamily="regular"
-                                placeholder="   Select your allergies"
-                                searchicon={<AntDesign name='search1' color={COLORS.primary} size={14} />}
-                                arrowicon={<FontAwesome5 name='chevron-down' color={COLORS.primary} size={18} />}
-                                closeicon={<Fontisto name='close-a' color={COLORS.primary} size={14} />}
                             />
 
                         </View>

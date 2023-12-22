@@ -39,7 +39,7 @@ const Home = ({navigation}) => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('AddMedication')}>
+                <TouchableOpacity onPress={() => navigation.navigate('AddMedicine')}>
                     <AntDesign
                         name="pluscircleo"
                         size={28}

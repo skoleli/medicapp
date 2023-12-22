@@ -1,25 +1,23 @@
 import Env from "../Env"
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const getUserID = async()=>{
-    return await AsyncStorage.getItem('user_id');
-};
+export const RequestURL = {
+    allDrugs: '',
+    drugCategories: '',
+    addDrugUrl: '',
+    remindersUrl:'',
+}
 
-const getToken = async()=>{
-    return await AsyncStorage.getItem('token');
-};
+export const setURLs = async()=>{
+    const user_id = await AsyncStorage.getItem('user_id') 
+    const base_url = Env.HOST
+    RequestURL.allDrugs = `${base_url}/users/${user_id}/all_drugs/table`
+    drugCategoriesUrl= `${base_url}/users/${user_id}/drug_categories/table`
+    addDrugUrl= `${base_url}users/${user_id}/drugs`
+    remindersUrl= `${base_url}users/${user_id}/drugs/table`
+}
 
-const user_id =  getUserID();
-const token =  getToken();
-
-const SessionURL = {
-    allDrugsUrl: `${Env.HOST}users/${user_id}/all_drugs_table`,
-    drugCategoriesUrl: `${Env.HOST}users/${user_id}/drug_categories_table`,
-    addDrugsUrl: `${Env.HOST}users/${user_id}/drugs`,
-    remindersUrl: `${Env.HOST}users/${user_id}/drugs/table`,
-};
-
-export const getAllDrugs = async (page = 1, pagesize = 200) => {
+export const getAllDrugs = async (url, token, page = 1, pagesize = 200) => {
     const requestData = {
         page: page,
         pageSize: pagesize,
@@ -28,12 +26,50 @@ export const getAllDrugs = async (page = 1, pagesize = 200) => {
             drug_category_name: 'asc',
         },
     };
+    console.log('request geldi:', requestData)
+    console.log(url)
     try {
-        const response = await fetch(SessionURL.allDrugsUrl, {
+        const response = await fetch(url, {
+            method: 'POST',
+            body: JSON.stringify(requestData),
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`,
+            }
+        });
+        console.log(38)
+        console.log(response.ok, response.status, response.statusText)
+        if (response.ok) {
+            console.log(40)
+            const responseData = await response.json();
+            console.log(responseData)
+            return responseData['records'];
+        } else {
+            console.log(45)
+            const errorData = response.status
+            throw new Error(`Request failed: ${errorData}`);
+        }
+    } catch (error) {
+        throw new Error(`Something went wrong while getting drugs: ${error.message}`);
+    }
+};
+
+export const getDrugCategories = async (url, token, page = 1, pageSize = 50) => {
+    const requestData = {
+        page: page,
+        pageSize: pagesize,
+        search: '',
+        filters: [],
+        sort: {
+            name: 'desc'
+        },
+    };
+    try {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token,
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         });
@@ -45,45 +81,12 @@ export const getAllDrugs = async (page = 1, pagesize = 200) => {
             throw new Error(`Request failed: ${errorData.message}`);
         }
     } catch (error) {
-        console.error('get all drugs error:', error.message)
-        throw new Error(`Something went wrong while getting drugs: ${error.message}`);
-    }
-};
-
-export const getDrugCategories = async (page = 1, pageSize = 50) => {
-    const requestData = {
-        page: page,
-        pageSize: pagesize,
-        search: '',
-        filters: [],
-        sort: {
-            name: 'desc'
-        },
-    };
-    try {
-        const response = await fetch(SessionURL.drugCategoriesUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': token,
-            },
-            body: JSON.stringify(requestData),
-        });
-        if (response.ok) {
-            const responseData = await response.json();
-            return responseData.records;
-        } else {
-            const errorData = await response.json();
-            throw new Error(`Request failed: ${errorData.message}`);
-        }
-    } catch (error) {
-        console.error('get drug categories error:', error.message);
-        throw new Error (`Something went wrong while getting drug categories: ${error.message}`);
+        throw new Error(`Something went wrong while getting drug categories: ${error.message}`);
     }
 };
 
 
-export const addReminder = async (drugId, dosageFreq, isFasting, startDate, endDate) => {
+export const addReminder = async (url,token, drugId, dosageFreq, isFasting, startDate, endDate) => {
     const requestData = {
         drug_id: drugId,
         dosage_frequency: dosageFreq,
@@ -92,11 +95,11 @@ export const addReminder = async (drugId, dosageFreq, isFasting, startDate, endD
         endDate: endDate,
     };
     try {
-        const response = await fetch(SessionURL.drugCategoriesUrl, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token,
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         })
@@ -110,12 +113,11 @@ export const addReminder = async (drugId, dosageFreq, isFasting, startDate, endD
             throw new Error(`Request failed: ${errorData.message}`);
         }
     } catch (error) {
-        console.error('add reminder error:', error.message);
         throw new Error(`Something went wrong while adding reminder: ${error.message}`);
     }
 };
 
-export const getReminders = async () => {
+export const getReminders = async (url,token) => {
     const requestData = {
         page: 1,
         pageSize: 100,
@@ -125,23 +127,22 @@ export const getReminders = async () => {
         },
     };
     try {
-        const response = await fetch(SessionURL.drugCategoriesUrl, {
+        const response = await fetch(url, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': token,
+                'Authorization': `Bearer ${token}`
             },
             body: JSON.stringify(requestData),
         });
         if (response.ok) {
             const responseData = await response.json();
-            return responseData;
+            return responseData['records'];
         } else {
             const errorData = await response.json();
             throw new Error(`Something went wrong while getting reminders: ${errorData.message}`);
         }
     } catch (error) {
-        console.error('get reminders error:', error.message);
         throw new Error(`Something went wrong while getting reminders: ${error.message}`);
     }
 };

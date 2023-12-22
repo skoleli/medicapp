@@ -40,7 +40,7 @@ const AddMedication = ({ navigation }) => {
                         color={COLORS.black}
                     />
                 </TouchableOpacity>
-                <Text style={{ ...FONTS.h4 }}>Add Medication</Text>
+                <Text style={{ ...FONTS.h4 }}>Add Reminder</Text>
             </View>
         )
     }

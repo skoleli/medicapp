@@ -11,7 +11,7 @@ import { validateInput } from '../utils/actions/formActions'
 import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Env from '../Env'
-import { getAllDrugs, getDrugCategories, getReminders } from '../api/sessionData';
+import { setURLs, RequestURL,getAllDrugs, getDrugCategories, getReminders } from '../api/sessionData';
 
 const initialState = {
     inputValues: {
@@ -49,7 +49,7 @@ const Login = ({ navigation }) => {
         }
         console.log(requestData)
         try {
-            const loginUrl = `${Env.HOST}login`
+            const loginUrl = `${Env.HOST}/login`
 
             const response = await fetch(loginUrl, {
                 method: 'POST',
@@ -61,9 +61,9 @@ const Login = ({ navigation }) => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log(responseData)
-                await AsyncStorage.setItem('token', responseData['token']).catch((error) => { console.log(error) })
-                await AsyncStorage.setItem('user_id', String(responseData['user_id'])).catch((error) => { console.log(error) })
+                console.log('login geldi:' , responseData)
+                await AsyncStorage.setItem('token', responseData['token'])
+                await AsyncStorage.setItem('user_id', String(responseData['user_id']))
                 return true;
             } else {
                 const errorData = await response.json();
@@ -77,9 +77,23 @@ const Login = ({ navigation }) => {
         }
     }
 
-    const getSessionData = async()=>{
-        getAllDrugs, getDrugCategories, getReminders
-
+    const getSessionData = async () => {
+        // getAllDrugs, getDrugCategories, getReminders
+        try {
+            await setURLs();
+            const token = await AsyncStorage.getItem('token')
+            const allDrugs = await getAllDrugs(RequestURL.allDrugs, token);
+            await AsyncStorage.setItem('all_drugs', JSON.stringify(allDrugs))
+            const allCategories = await getDrugCategories(RequestURL.drugCategories, token)
+            await AsyncStorage.setItem('all_categories', JSON.stringify(allCategories))
+            const reminders = await getReminders(RequestURL.remindersUrl, token)
+            await AsyncStorage.setItem('reminders', JSON.stringify(reminders))
+            return true;
+        } catch (error) {
+            console.error('fetch error:', error.message);
+            Alert.alert('Process Failed', 'An error occurred during fetching user data. Please try again later.');
+            return false;
+        }
     }
 
     return (
@@ -151,27 +165,18 @@ const Login = ({ navigation }) => {
                         onPress={async () => {
                             const success = await handleLogin()
                             if (success === true) {
-                                // TODO: get other asyncs
-                                navigation.navigate('BottomTabNavigation')
+                                const ok = await getSessionData()
+                                if (ok === true) {
+                                    navigation.navigate('BottomTabNavigation')
+                                }
+                                // navigation.navigate('BottomTabNavigation')
+
                             }
                         }}
                         style={{
                             width: '100%',
                         }}
                     />
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('ResetPassword')}
-                    >
-                        <Text
-                            style={{
-                                ...FONTS.body3,
-                                color: COLORS.primary,
-                                marginVertical: 12,
-                            }}
-                        >
-                            Forgot Password
-                        </Text>
-                    </TouchableOpacity>
 
                     <View
                         style={{
