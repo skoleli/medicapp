@@ -72,10 +72,6 @@ const Profile = ({ navigation }) => {
                     />
                 </TouchableOpacity>
                 <Text style={{ ...FONTS.h4 }}>Profile</Text>
-                {/* TODO: add edit options */}
-                <TouchableOpacity onPress={() => console.log('Pressed')}> 
-                    <Feather name="edit" size={24} color={COLORS.black} />
-                </TouchableOpacity>
             </View>
         )
     }

@@ -8,7 +8,7 @@ import {
 } from '@expo/vector-icons'
 import React from 'react'
 import { COLORS } from '../constants'
-import { MedicationInfo, Home, Profile, Report, Search } from '../screens'
+import { MedicationInfo, Home, Profile } from '../screens'
 import { Platform } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
 

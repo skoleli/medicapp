@@ -6,6 +6,7 @@ import { useEffect } from "react"
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
 import { intakeList } from "../constants/data"
+import { Alert } from "react-native"
 
 // clockcircleo => AntDesign
 // checkcircleo => AntDesign
@@ -87,7 +88,7 @@ const IntakePressed = ({ id, taken, name, reminder, dosage }) => {
             </TouchableOpacity>
             <View style={{
                 backgroundColor: COLORS.white,
-                width: "70%",
+                width: "60%",
                 height: "95%",
                 borderRadius: SIZES.padding,
 
@@ -113,7 +114,20 @@ const IntakePressed = ({ id, taken, name, reminder, dosage }) => {
                         {dosage}
                     </Text>
                 </View>
+                
+                
             </View>
+            <TouchableOpacity
+                onPress={()=> Alert.alert('Medicine Warnings', 'Do not use if allergic to aspirin or taking blood-thinning medications.')}
+                style={{
+                    height:44,
+                    width:44,
+                    alignItems:'center',
+                    justifyContent:'center',
+                }}
+            >
+                <AntDesign name='infocirlceo' size={20}></AntDesign>
+                </TouchableOpacity>
         </View>
     )
 }

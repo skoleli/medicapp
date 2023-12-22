@@ -3,7 +3,8 @@ import PageContainer from '../components/PageContainer'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialIcons, EvilIcons } from '@expo/vector-icons'
 import { COLORS, FONTS, SIZES } from "../constants";
-
+import { notifications } from '../constants/data';
+import NotificationCell from '../components/NotificationCell';
 import React from 'react'
 
 
@@ -39,13 +40,29 @@ const Notification = ({ navigation }) => {
             </View>
         )
     }
+
+    function renderContent() {
+        return (<View>
+            <ScrollView>
+                {notifications.map((notification, index) => (
+                    <NotificationCell
+                        key={index}
+                        value ={notification.value}
+                        datetime = {notification.dateTime}
+                    />
+                ))}
+            </ScrollView>
+        </View>)
+    }
     return (
-        <SafeAreaView style={{flex:1}}>
+        <SafeAreaView style={{ flex: 1 }}>
             <PageContainer>
                 <View style={{
-                    marginHorizontal: 10
+                    marginHorizontal: 10,
+                    marginBottom:90,
                 }}>
                     {renderHeader()}
+                    {renderContent()}
                 </View>
             </PageContainer>
         </SafeAreaView>
