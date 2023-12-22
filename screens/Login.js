@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity , Alert} from 'react-native'
+import { View, Text, Image, TouchableOpacity, Alert } from 'react-native'
 import React, { useCallback, useReducer } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import PageContainer from '../components/PageContainer'
@@ -11,12 +11,12 @@ import { validateInput } from '../utils/actions/formActions'
 import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Env from '../Env'
-// import {getAllDrugs, getDrugCategories, addReminder, getReminders} from '../api/sessionData'
+import { getAllDrugs, getDrugCategories, addReminder, getReminders } from '../api/sessionData'
 
 const initialState = {
-    inputValues:{
-        email:'',
-        password:'',
+    inputValues: {
+        email: '',
+        password: '',
     },
     inputValidities: {
         email: false,
@@ -24,6 +24,7 @@ const initialState = {
     },
     formIsValid: false,
 }
+
 const Login = ({ navigation }) => {
     const [accessToken, setAccessToken] = useState('')
     const [formState, dispatchFormState] = useReducer(reducer, initialState)
@@ -36,7 +37,7 @@ const Login = ({ navigation }) => {
         [dispatchFormState]
     )
 
-    const handleLogin = async() => {
+    const handleLogin = async () => {
         if (!formState.formIsValid) {
             Alert.alert('Validation Error', 'Please fill in all fields.')
             return false;
@@ -49,7 +50,7 @@ const Login = ({ navigation }) => {
         console.log(requestData)
         try {
             const loginUrl = `${Env.HOST}login`
-            
+
             const response = await fetch(loginUrl, {
                 method: 'POST',
                 headers: {
@@ -61,8 +62,8 @@ const Login = ({ navigation }) => {
             if (response.ok) {
                 const responseData = await response.json();
                 console.log(responseData)
-                await AsyncStorage.setItem('token', responseData['token']).catch((error)=>{console.log(error)})
-                await AsyncStorage.setItem('user_id', String(responseData['user_id'])).catch((error)=>{console.log(error)})
+                await AsyncStorage.setItem('token', responseData['token']).catch((error) => { console.log(error) })
+                await AsyncStorage.setItem('user_id', String(responseData['user_id'])).catch((error) => { console.log(error) })
                 return true;
             } else {
                 const errorData = await response.json();
@@ -143,11 +144,10 @@ const Login = ({ navigation }) => {
                     <Button
                         title="LOGIN"
                         filled
-                        onPress={ async () => {
+                        onPress={async () => {
                             const success = await handleLogin()
-                            if (success===true){
+                            if (success === true) {
                                 // TODO: get other asyncs
-                                getSessionData()
                                 navigation.navigate('BottomTabNavigation')
                             }
                         }}
