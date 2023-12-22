@@ -11,7 +11,7 @@ import { validateInput } from '../utils/actions/formActions'
 import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Env from '../Env'
-import { getAllDrugs, getDrugCategories, addReminder, getReminders } from '../api/sessionData'
+import { getAllDrugs, getDrugCategories, getReminders } from '../api/sessionData';
 
 const initialState = {
     inputValues: {
@@ -23,7 +23,7 @@ const initialState = {
         password: false,
     },
     formIsValid: false,
-}
+};
 
 const Login = ({ navigation }) => {
     const [accessToken, setAccessToken] = useState('')
@@ -77,6 +77,10 @@ const Login = ({ navigation }) => {
         }
     }
 
+    const getSessionData = async()=>{
+        getAllDrugs, getDrugCategories, getReminders
+
+    }
 
     return (
         <SafeAreaView
