@@ -39,25 +39,6 @@ const MedicationInfo = ({ navigation }) => {
                 </TouchableOpacity>
 
                 <Text style={{ ...FONTS.h4 }}>Medications</Text>
-
-                <TouchableOpacity
-                    onPress={() => navigation.navigate('Search')}
-                    style={{
-                        height: 44,
-                        width: 44,
-                        borderRadius: 4,
-                        backgroundColor: COLORS.secondaryWhite,
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}
-                >
-                    <AntDesign
-                        name="search1"
-                        size={24}
-                        color={COLORS.black}
-                    />
-
-                </TouchableOpacity>
             </View>
         )
     }

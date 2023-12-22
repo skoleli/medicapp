@@ -1,83 +1,39 @@
 import { images, icons } from '../constants'
 
-export const donors = [
-    {
-        id: '1',
-        image: images.user1,
-        name: 'Yasin Hossain',
-        location: 'Mohammedpur',
-        bloodType: 'A+',
-    },
-    {
-        id: '2',
-        image: images.user2,
-        name: 'Mohammed Sami',
-        location: 'Mirpur 10, Dhaka',
-        bloodType: 'AB+',
-    },
-    {
-        id: '3',
-        image: images.user3,
-        name: 'Rahimun Islam',
-        location: 'Chittagong',
-        bloodType: 'B-',
-    },
-    {
-        id: '4',
-        image: images.user4,
-        name: 'Rumana',
-        location: 'Lakshmipur',
-        bloodType: 'O+',
-    },
-    {
-        id: '5',
-        image: images.user5,
-        name: 'Jubayer Ahmed',
-        location: 'Mohammedpur, Dhaka',
-        bloodType: 'A+',
-    },
-    {
-        id: '6',
-        image: images.user6,
-        name: 'Edward Lio',
-        location: 'Mohammedpur, Dhaka',
-        bloodType: 'B+',
-    },
-]
 
 export const intakeList = [
     {
-        id:'1',
+        id: '1',
         name: 'med1',
         reminder: '5:00',
         dosage: '1 pill',
     },
     {
-        id:'2',
+        id: '2',
         name: 'med2',
         reminder: '5:00',
         dosage: '1 pill',
     },
     {
-        id:'3',
+        id: '3',
         name: 'med3',
         reminder: '5:00',
         dosage: '1 pill',
     },
     {
-        id:'4',
+        id: '4',
         name: 'med4',
         reminder: '5:00',
         dosage: '1 pill',
     },
     {
-        id:'5',
+        id: '5',
         name: 'med5',
         reminder: '5:00',
         dosage: '1 pill',
     },
     {
-        id:'6',
+        id: '6',
         name: 'med6',
         reminder: '5:00',
         dosage: '1 pill',
@@ -110,3 +66,50 @@ export const medicationInfos = [
         description: 'Lorem ipsum dolor',
     },
 ]
+
+
+export const medDetail = {
+    description: "Aspirin is a nonsteroidal anti-inflammatory drug (NSAID) used to relieve pain and reduce inflammation.",
+    drug_category_description: "Pain-relieving medications",
+    drug_category_id: 1,
+    drug_category_name: "Analgesics",
+    id: 1,
+    image_url: "https://example.com/aspirin.jpg",
+    name: "Aspirin",
+    side_effects: "Common side effects include stomach pain and heartburn.",
+    warnings: "Do not use if allergic to aspirin or taking blood-thinning medications."
+}
+
+export const notifications = [
+    {
+        key: 1,
+        value: "Don't forget to take Aspirin at 7:00 AM",
+        dateTime: "22.01.2023, 6:30 AM"
+    },
+    {
+        key: 2,
+        value: "Time for your daily dose of antibiotics at 10:30 AM",
+        dateTime: "22.01.2023, 10:00 AM"
+    },
+    {
+        key: 3,
+        value: "Reminder: Take allergy medication at 12:00 PM",
+        dateTime: "22.01.2023, 11:30 AM"
+    },
+    {
+        key: 4,
+        value: "It's time for your blood pressure medication at 2:30 PM",
+        dateTime: "22.01.2023, 2:00 PM"
+    },
+    {
+        key: 5,
+        value: "Did you take your blood pressure medication at 2:30 PM?",
+        dateTime: "22.01.2023, 3:00 PM"
+    },
+    {
+        key: 6,
+        value: "Don't skip your C vitamin at 5:00 PM",
+        dateTime: "22.01.2023, 4:30 PM"
+    },
+];
+

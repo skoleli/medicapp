@@ -8,7 +8,6 @@ import ResetPassword from "./ResetPassword";
 import SuccessVerification from "./SuccessVerification";
 import Profile from "./Profile";
 import MedicationInfo from "./MedicationInfo";
-import Search from "./Search";
 import Notification from "./Notification";
 import Report from "./Report";
 import AddMedication from "./AddMedication"
@@ -26,7 +25,6 @@ export {
     SuccessVerification,
     Profile,
     MedicationInfo,
-    Search,
     Report,
     Notification,
     AddMedication,
