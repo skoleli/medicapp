@@ -1,4 +1,4 @@
-import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { View, Text, Image, TouchableOpacity , Alert} from 'react-native'
 import React, { useCallback, useReducer } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import PageContainer from '../components/PageContainer'
@@ -11,7 +11,7 @@ import { validateInput } from '../utils/actions/formActions'
 import { useState } from 'react'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import Env from '../Env'
-
+// import {getAllDrugs, getDrugCategories, addReminder, getReminders} from '../api/sessionData'
 
 const initialState = {
     inputValues:{
@@ -46,20 +46,21 @@ const Login = ({ navigation }) => {
             email: formState.inputValues.email,
             password: formState.inputValues.password,
         }
-
+        console.log(requestData)
         try {
             const loginUrl = `${Env.HOST}login`
+            
             const response = await fetch(loginUrl, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(requestData),
-            }).catch((err)=>{console.log(err)})
+            })
 
             if (response.ok) {
                 const responseData = await response.json();
-                
+                console.log(responseData)
                 await AsyncStorage.setItem('token', responseData['token']).catch((error)=>{console.log(error)})
                 await AsyncStorage.setItem('user_id', String(responseData['user_id'])).catch((error)=>{console.log(error)})
                 return true;
@@ -145,6 +146,8 @@ const Login = ({ navigation }) => {
                         onPress={ async () => {
                             const success = await handleLogin()
                             if (success===true){
+                                // TODO: get other asyncs
+                                getSessionData()
                                 navigation.navigate('BottomTabNavigation')
                             }
                         }}

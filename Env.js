@@ -1,5 +1,5 @@
 const Env = {
-    HOST: 'https://4eca-212-154-4-103.ngrok-free.app/',
+    HOST: 'https://1dec-194-27-192-239.ngrok-free.app/',
   };
   
 export default Env;
