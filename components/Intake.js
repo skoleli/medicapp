@@ -11,7 +11,7 @@ import { Alert } from "react-native"
 // clockcircleo => AntDesign
 // checkcircleo => AntDesign
 
-const IntakeNonPressed = ({ taken, name, reminder, dosage }) => {
+const IntakeNonPressed = ({ taken, name, time }) => {
     return (
         <View style={{
             alignItems: 'center',
@@ -30,16 +30,13 @@ const IntakeNonPressed = ({ taken, name, reminder, dosage }) => {
             shadowColor: COLORS.secondaryWhite,
             shadowRadius: 3,
         }}>
-            {taken ? <AntDesign name='checkcircleo' size={25} /> : <AntDesign name='clockcircleo' size={25} />}
+            {taken ? <AntDesign name='checkcircleo' size={25} color={COLORS.primary}/> : <AntDesign name='clockcircleo' size={25}  />}
             <View style={{
                 flexDirection: 'column',
                 marginHorizontal: 15
             }}>
                 <Text style={{ ...FONTS.body3 }}>
                     {name}
-                </Text>
-                <Text style={{ ...FONTS.body4 }}>
-                    {dosage}
                 </Text>
             </View>
             <View style={{
@@ -52,14 +49,14 @@ const IntakeNonPressed = ({ taken, name, reminder, dosage }) => {
                 <Text style={{
                     ...FONTS.body3,
                 }}>
-                    {reminder}
+                    {time}
                 </Text>
             </View>
         </View>
     )
 }
 
-const IntakePressed = ({ id, taken, name, reminder, dosage }) => {
+const IntakePressed = ({ id, taken, name, time, toggleTaken }) => {
     return (
         <View style={{
             backgroundColor: COLORS.pink,
@@ -79,7 +76,10 @@ const IntakePressed = ({ id, taken, name, reminder, dosage }) => {
             shadowRadius: 3,
         }}>
             <TouchableOpacity
-                onPress={() => { console.log('Pressed take') }}
+                onPress={() => {
+                    console.log('Pressed take')
+                    toggleTaken(id, time)
+                }}
                 style={{ marginRight: "auto", marginLeft: 10 }}
             >
                 <Text style={{ ...FONTS.body2 }}>
@@ -107,33 +107,33 @@ const IntakePressed = ({ id, taken, name, reminder, dosage }) => {
                 shadowRadius: 3,
             }}>
                 <View style={{ flexDirection: 'column' }}>
-                    <Text>
+                    <Text style={{ ...FONTS.body4 }}>
                         {name}
                     </Text>
-                    <Text>
-                        {dosage}
+                    <Text style={{ ...FONTS.body4 }}>
+                        {time}
                     </Text>
                 </View>
-                
-                
+
+
             </View>
             <TouchableOpacity
-                onPress={()=> Alert.alert('Medicine Warnings', 'Do not use if allergic to aspirin or taking blood-thinning medications.')}
+                onPress={() => Alert.alert('Medicine Warnings', 'Do not use if allergic to aspirin or taking blood-thinning medications.')}
                 style={{
-                    height:44,
-                    width:44,
-                    alignItems:'center',
-                    justifyContent:'center',
+                    height: 44,
+                    width: 44,
+                    alignItems: 'center',
+                    justifyContent: 'center',
                 }}
             >
                 <AntDesign name='infocirlceo' size={20}></AntDesign>
-                </TouchableOpacity>
+            </TouchableOpacity>
         </View>
     )
 }
 
 
-const Intake = ({ id = 1, taken, name = "Med1", reminder = "7.00", dosage = "1 pill" }) => {
+const Intake = ({ id = 1, taken, name = "Med1", time = "7.00", toggleTaken }) => {
     const [isPressed, setIsPressed] = useState(false);
 
     const handlePress = () => {
@@ -144,8 +144,8 @@ const Intake = ({ id = 1, taken, name = "Med1", reminder = "7.00", dosage = "1 p
         id,
         taken,
         name,
-        reminder,
-        dosage
+        time,
+        toggleTaken
     }
     return (
         <GestureHandlerRootView>
@@ -158,16 +158,18 @@ const Intake = ({ id = 1, taken, name = "Med1", reminder = "7.00", dosage = "1 p
     )
 }
 
-const IntakeList = () => {
+const IntakeList = ({ reminders, toggleTaken }) => {
     return (
         <View>
             {
-                intakeList.map((intake, index) => {
-                    return <Intake 
+                reminders.map((intake, index) => {
+                    return <Intake
                         key={index}
+                        id={intake.id}
                         name={intake.name}
-                        reminder={intake.reminder}
-                        dosage={intake.dosage}
+                        time={intake.time}
+                        taken={intake.taken}
+                        toggleTaken={toggleTaken}
                     />
                 })
             }

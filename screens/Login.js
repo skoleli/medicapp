@@ -47,7 +47,6 @@ const Login = ({ navigation }) => {
             email: formState.inputValues.email,
             password: formState.inputValues.password,
         }
-        console.log(requestData)
         try {
             const loginUrl = `${Env.HOST}/login`
 
@@ -61,7 +60,6 @@ const Login = ({ navigation }) => {
 
             if (response.ok) {
                 const responseData = await response.json();
-                console.log('login geldi:' , responseData)
                 await AsyncStorage.setItem('token', responseData['token'])
                 await AsyncStorage.setItem('user_id', String(responseData['user_id']))
                 return true;
@@ -78,13 +76,12 @@ const Login = ({ navigation }) => {
     }
 
     const getSessionData = async () => {
-        // getAllDrugs, getDrugCategories, getReminders
         try {
             await setURLs();
             const token = await AsyncStorage.getItem('token')
             const allDrugs = await getAllDrugs(RequestURL.allDrugs, token);
             await AsyncStorage.setItem('all_drugs', JSON.stringify(allDrugs))
-            const allCategories = await getDrugCategories(RequestURL.drugCategories, token)
+            const allCategories = await getDrugCategories(RequestURL.drugCategoriesUrl, token)
             await AsyncStorage.setItem('all_categories', JSON.stringify(allCategories))
             const reminders = await getReminders(RequestURL.remindersUrl, token)
             await AsyncStorage.setItem('reminders', JSON.stringify(reminders))

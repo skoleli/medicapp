@@ -12,9 +12,9 @@ export const setURLs = async()=>{
     const user_id = await AsyncStorage.getItem('user_id') 
     const base_url = Env.HOST
     RequestURL.allDrugs = `${base_url}/users/${user_id}/all_drugs/table`
-    drugCategoriesUrl= `${base_url}/users/${user_id}/drug_categories/table`
-    addDrugUrl= `${base_url}users/${user_id}/drugs`
-    remindersUrl= `${base_url}users/${user_id}/drugs/table`
+    RequestURL.drugCategoriesUrl= `${base_url}/users/${user_id}/drug_categories/table`
+    RequestURL.addDrugUrl= `${base_url}/users/${user_id}/drugs`
+    RequestURL.remindersUrl= `${base_url}/users/${user_id}/drugs/table`
 }
 
 export const getAllDrugs = async (url, token, page = 1, pagesize = 200) => {
@@ -26,8 +26,6 @@ export const getAllDrugs = async (url, token, page = 1, pagesize = 200) => {
             drug_category_name: 'asc',
         },
     };
-    console.log('request geldi:', requestData)
-    console.log(url)
     try {
         const response = await fetch(url, {
             method: 'POST',
@@ -37,15 +35,10 @@ export const getAllDrugs = async (url, token, page = 1, pagesize = 200) => {
                 'Authorization': `Bearer ${token}`,
             }
         });
-        console.log(38)
-        console.log(response.ok, response.status, response.statusText)
         if (response.ok) {
-            console.log(40)
             const responseData = await response.json();
-            console.log(responseData)
             return responseData['records'];
         } else {
-            console.log(45)
             const errorData = response.status
             throw new Error(`Request failed: ${errorData}`);
         }
@@ -57,7 +50,7 @@ export const getAllDrugs = async (url, token, page = 1, pagesize = 200) => {
 export const getDrugCategories = async (url, token, page = 1, pageSize = 50) => {
     const requestData = {
         page: page,
-        pageSize: pagesize,
+        pageSize: pageSize,
         search: '',
         filters: [],
         sort: {
@@ -106,8 +99,8 @@ export const addReminder = async (url,token, drugId, dosageFreq, isFasting, star
         if (response.ok) {
             const responseData = await response.json();
             // update reminders
-            await getReminders();
-            return true;
+            const ok = await setReminders(token);
+            return ok;
         } else {
             const errorData = await response.json();
             throw new Error(`Request failed: ${errorData.message}`);
@@ -116,6 +109,17 @@ export const addReminder = async (url,token, drugId, dosageFreq, isFasting, star
         throw new Error(`Something went wrong while adding reminder: ${error.message}`);
     }
 };
+
+export const setReminders = async (token) =>{
+    try{
+    const responseData = await getReminders(RequestURL.remindersUrl, token)
+    await AsyncStorage.setItem('reminders', JSON.stringify(responseData))
+    return true
+    }catch(error){
+        return false
+    }
+}
+
 
 export const getReminders = async (url,token) => {
     const requestData = {
@@ -126,9 +130,10 @@ export const getReminders = async (url,token) => {
             'drug_category_name': 'asc',
         },
     };
+
     try {
         const response = await fetch(url, {
-            method: 'POST',
+        method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
