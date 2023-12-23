@@ -64,8 +64,8 @@ const Login = ({ navigation }) => {
                 await AsyncStorage.setItem('user_id', String(responseData['user_id']))
                 return true;
             } else {
-                const errorData = await response.json();
-                Alert.alert('Login Failed', errorData.message || 'An error occurred during logging in.');
+                const errorData = response.status
+                Alert.alert('Login Failed', errorData || 'An error occurred during logging in.');
                 return false;
             }
         } catch (error) {

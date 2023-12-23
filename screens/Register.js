@@ -73,8 +73,8 @@ const Register = ({ navigation }) => {
             if (response.ok) {
                 return true;
             } else {
-                const errorData = await response.json();
-                Alert.alert('Registration Failed', errorData.message || 'An error occurred during registration.');
+                const errorData = response.status
+                Alert.alert('Registration Failed', errorData || 'An error occurred during registration.');
                 return false;
             }
         } catch (error) {

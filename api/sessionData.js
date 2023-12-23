@@ -70,7 +70,7 @@ export const getDrugCategories = async (url, token, page = 1, pageSize = 50) => 
             const responseData = await response.json();
             return responseData['records'];
         } else {
-            const errorData = await response.json();
+            const errorData = response.status
             throw new Error(`Request failed: ${errorData.message}`);
         }
     } catch (error) {
@@ -97,13 +97,11 @@ export const addReminder = async (url,token, drugId, dosageFreq, isFasting, star
             body: JSON.stringify(requestData),
         })
         if (response.ok) {
-            const responseData = await response.json();
             // update reminders
             const ok = await setReminders(token);
             return ok;
         } else {
-            const errorData = await response.json();
-            throw new Error(`Request failed: ${errorData.message}`);
+            throw new Error(`Request failed: ${errorData}`);
         }
     } catch (error) {
         throw new Error(`Something went wrong while adding reminder: ${error.message}`);
@@ -112,6 +110,7 @@ export const addReminder = async (url,token, drugId, dosageFreq, isFasting, star
 
 export const setReminders = async (token) =>{
     try{
+    await setURLs()
     const responseData = await getReminders(RequestURL.remindersUrl, token)
     await AsyncStorage.setItem('reminders', JSON.stringify(responseData))
     return true
@@ -144,7 +143,7 @@ export const getReminders = async (url,token) => {
             const responseData = await response.json();
             return responseData['records'];
         } else {
-            const errorData = await response.json();
+            const errorData = response.status
             throw new Error(`Something went wrong while getting reminders: ${errorData.message}`);
         }
     } catch (error) {

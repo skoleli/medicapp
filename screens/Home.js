@@ -12,7 +12,9 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useState } from "react";
 import { useEffect } from "react";
 
-const Home = ({ navigation }) => {
+
+const Home = ({ route, navigation }) => {
+    const {triggerReminder} = route.params || {};
     const [reminders, setReminders] = useState([])
     const [nonTakenReminders, setNonTakenReminders] = useState([])
 
@@ -20,80 +22,83 @@ const Home = ({ navigation }) => {
         return reminders.length
     }
 
-    const lenRemindersNonTaken = () =>{
+    const lenRemindersNonTaken = () => {
         return nonTakenReminders.length
     }
 
     const toggleTaken = (id, time) => {
         const updatedReminders = reminders.map((reminder) =>
-            reminder.id === id && reminder.time===time ? { ...reminder, taken: !reminder.taken } : reminder
+            reminder.id === id && reminder.time === time ? { ...reminder, taken: !reminder.taken } : reminder
         );
-        console.log('in')
         setReminders(updatedReminders);
     };
 
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                await fetchDataFromStorage();
+            } catch (error) {
+                console.error('error:', error)
+            }
+        }
+        fetchData();
+    }, [triggerReminder]);
 
     useEffect(() => {
         // Filter non-taken reminders only when reminders change
         const nonTakens = reminders.filter((reminder) => reminder.taken === true);
         setNonTakenReminders(nonTakens);
-      }, [reminders]); // Add reminders as a dependency
+    }, [reminders]); // Add reminders as a dependency
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const storagedata = await AsyncStorage.getItem('reminders');
-                if (storagedata) {
-                    // Parse the string into a JavaScript object
-                    const parsedData = JSON.parse(storagedata);
 
-                    const editedReminders = parsedData.flatMap((reminder) => {
-                        const baseReminder = {
-                            ...reminder,
-                            taken: false, // You can set the initial value of 'taken' as needed
-                        };
-                        if (reminder.status === 'ACTIVE') {
-                            if (reminder.dosage_frequency === 1) {
-                                // For dosage_frequency = 1, set time to '8.00 AM'
-                                return [{ ...baseReminder, time: '08.00 AM', taken: false }];
-                            } else if (reminder.dosage_frequency === 2) {
-                                // For dosage_frequency = 2, set times to '8.00 AM' and '4.00 PM'
-                                return [
-                                    { ...baseReminder, time: '08.00 AM', taken: false },
-                                    { ...baseReminder, time: '08.00 PM', taken: false },
-                                ];
-                            } else if (reminder.dosage_frequency === 3) {
-                                // For dosage_frequency = 2, set times to '8.00 AM' and '4.00 PM'
-                                return [
-                                    { ...baseReminder, time: '08.00 AM', taken: false },
-                                    { ...baseReminder, time: '06.00 PM', taken: false },
-                                    { ...baseReminder, time: '00.00 AM', taken: false },
-                                ];
-                            } else if (reminder.dosage_frequency === 4) {
-                                // For dosage_frequency = 2, set times to '8.00 AM' and '4.00 PM'
-                                return [
-                                    { ...baseReminder, time: '08.00 AM', taken: false },
-                                    { ...baseReminder, time: '02.00 PM', taken: false },
-                                    { ...baseReminder, time: '08.00 PM', taken: false },
-                                    { ...baseReminder, time: '00.00 AM', taken: false },
-                                ];
-                            }
-
-                        return baseReminder;
-                        }else{
-                            return [];
+    const fetchDataFromStorage = async () => {
+        try {
+            const storagedata = await AsyncStorage.getItem('reminders');
+            if (storagedata) {
+                // Parse the string into a JavaScript object
+                const parsedData = JSON.parse(storagedata);
+                const editedReminders = parsedData.flatMap((reminder) => {
+                    const baseReminder = {
+                        ...reminder,
+                        taken: false, // You can set the initial value of 'taken' as needed
+                    };
+                    if (reminder.status === 'ACTIVE') {
+                        if (reminder.dosage_frequency === 1) {
+                            // For dosage_frequency = 1, set time to '8.00 AM'
+                            return [{ ...baseReminder, time: '08.00 AM', taken: false }];
+                        } else if (reminder.dosage_frequency === 2) {
+                            // For dosage_frequency = 2, set times to '8.00 AM' and '4.00 PM'
+                            return [
+                                { ...baseReminder, time: '08.00 AM', taken: false },
+                                { ...baseReminder, time: '08.00 PM', taken: false },
+                            ];
+                        } else if (reminder.dosage_frequency === 3) {
+                            // For dosage_frequency = 3, set times to '8.00 AM', '6.00 PM', and '00.00 AM'
+                            return [
+                                { ...baseReminder, time: '08.00 AM', taken: false },
+                                { ...baseReminder, time: '06.00 PM', taken: false },
+                                { ...baseReminder, time: '00.00 AM', taken: false },
+                            ];
+                        } else if (reminder.dosage_frequency === 4) {
+                            // For dosage_frequency = 4, set times to '8.00 AM', '2.00 PM', '8.00 PM', and '00.00 AM'
+                            return [
+                                { ...baseReminder, time: '08.00 AM', taken: false },
+                                { ...baseReminder, time: '02.00 PM', taken: false },
+                                { ...baseReminder, time: '08.00 PM', taken: false },
+                                { ...baseReminder, time: '00.00 AM', taken: false },
+                            ];
                         }
-                    });
-                    console.log(editedReminders)
-                    setReminders(editedReminders);
-                }
-            } catch (error) {
-                console.error('Error fetching data from AsyncStorage:', error);
+                    }
+                    return baseReminder;
+                });
+                setReminders(editedReminders);
             }
-        };
+        } catch (error) {
+            console.error('Error fetching data from AsyncStorage:', error);
+        }
+    };
 
-        fetchData();
-    }, []);
+   
 
     function renderHeader() {
         return (
@@ -124,7 +129,9 @@ const Home = ({ navigation }) => {
                         />
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity onPress={() => navigation.navigate('AddMedicine')}>
+                <TouchableOpacity onPress={() => {
+                    navigation.navigate('AddMedicine')
+                }}>
                     <AntDesign
                         name="pluscircleo"
                         size={28}
@@ -152,7 +159,7 @@ const Home = ({ navigation }) => {
                     }}>
                     <GestureHandlerRootView>
                         <ScrollView>
-                            <IntakeList reminders={reminders} toggleTaken ={toggleTaken} />
+                            <IntakeList reminders={reminders} toggleTaken={toggleTaken} />
                         </ScrollView>
                     </GestureHandlerRootView>
                 </View>
@@ -173,6 +180,7 @@ const Home = ({ navigation }) => {
             </PageContainer>
         </SafeAreaView>
     )
+
 }
 
 export default Home

@@ -20,7 +20,7 @@ const MedicationInfo = ({ navigation }) => {
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => navigation.navigate('Home Screen')}
+                    onPress={() => navigation.navigate('Home Screen', { triggerReminder: true })}
                     style={{
                         height: 44,
                         width: 44,

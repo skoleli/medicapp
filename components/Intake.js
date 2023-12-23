@@ -56,7 +56,7 @@ const IntakeNonPressed = ({ taken, name, time }) => {
     )
 }
 
-const IntakePressed = ({ id, taken, name, time, toggleTaken }) => {
+const IntakePressed = ({ id, taken, name, time, toggleTaken, warnings }) => {
     return (
         <View style={{
             backgroundColor: COLORS.pink,
@@ -77,7 +77,6 @@ const IntakePressed = ({ id, taken, name, time, toggleTaken }) => {
         }}>
             <TouchableOpacity
                 onPress={() => {
-                    console.log('Pressed take')
                     toggleTaken(id, time)
                 }}
                 style={{ marginRight: "auto", marginLeft: 10 }}
@@ -118,7 +117,7 @@ const IntakePressed = ({ id, taken, name, time, toggleTaken }) => {
 
             </View>
             <TouchableOpacity
-                onPress={() => Alert.alert('Medicine Warnings', 'Do not use if allergic to aspirin or taking blood-thinning medications.')}
+                onPress={() => Alert.alert('Medicine Warnings', warnings)}
                 style={{
                     height: 44,
                     width: 44,
@@ -133,7 +132,7 @@ const IntakePressed = ({ id, taken, name, time, toggleTaken }) => {
 }
 
 
-const Intake = ({ id = 1, taken, name = "Med1", time = "7.00", toggleTaken }) => {
+const Intake = ({ id = 1, taken, name = "Med1", time = "7.00", toggleTaken, warnings }) => {
     const [isPressed, setIsPressed] = useState(false);
 
     const handlePress = () => {
@@ -145,7 +144,8 @@ const Intake = ({ id = 1, taken, name = "Med1", time = "7.00", toggleTaken }) =>
         taken,
         name,
         time,
-        toggleTaken
+        toggleTaken,
+        warnings
     }
     return (
         <GestureHandlerRootView>
@@ -169,6 +169,7 @@ const IntakeList = ({ reminders, toggleTaken }) => {
                         name={intake.name}
                         time={intake.time}
                         taken={intake.taken}
+                        warnings={intake.warnings}
                         toggleTaken={toggleTaken}
                     />
                 })
