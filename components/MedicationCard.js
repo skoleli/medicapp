@@ -6,12 +6,12 @@ import { TouchableOpacity } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
 
 
-const MedicationCard = ({parent, name, description, navigation}) => {
+const MedicationCard = ({ parent, name, description, drug_id, navigation, drugs }) => {
     return (
         <View
             style={{
                 width: SIZES.width - 44,
-                height: 140,
+                height: 150,
                 borderRadius: SIZES.padding,
                 backgroundColor: COLORS.white,
                 flexDirection: 'row',
@@ -29,6 +29,7 @@ const MedicationCard = ({parent, name, description, navigation}) => {
             <View
                 style={{
                     flexDirection: 'column',
+                    width: SIZES.width - 150,
                 }}
             >
                 <Text
@@ -46,6 +47,8 @@ const MedicationCard = ({parent, name, description, navigation}) => {
                         color: COLORS.black,
                         fontWeight: 500,
                     }}
+                    numberOfLines={1} // Set the number of lines to display
+                    ellipsizeMode="tail"
                 >
                     {name}
                 </Text>
@@ -65,6 +68,8 @@ const MedicationCard = ({parent, name, description, navigation}) => {
                         fontWeight: 500,
                         marginVertical: 2,
                     }}
+                    numberOfLines={3} // Set the number of lines to display
+                    ellipsizeMode="tail"
                 >
                     {description}
                 </Text>
@@ -77,9 +82,9 @@ const MedicationCard = ({parent, name, description, navigation}) => {
                     justifyContent: 'space-evenly',
                 }}
             >
-                <FontAwesome5 name ='book-medical' size={50} color = {COLORS.primary} />
+                <FontAwesome5 name='book-medical' size={50} color={COLORS.primary} />
 
-                <TouchableOpacity onPress={()=> (navigation.navigate('MedicineDetail'))}>
+                <TouchableOpacity onPress={() => (navigation.navigate('MedicineDetail', {parent: parent, drug_id: drug_id, drugs: drugs}))}>
                     <Text
                         style={{
                             ...FONTS.h4,

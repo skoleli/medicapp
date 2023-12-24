@@ -16,17 +16,6 @@ import { useEffect } from "react";
 
 const ReminderForm = ({toggleSelection}) => {
     const [medications, setMedications] = useState([])
-    const [selectedMedicine, setSelectedMedicine] = React.useState("");
-    const [selectedHorarire, setSelectedHoraire] = React.useState("");
-
-    const [selectedStartDay, setSelectedStartDay] = useState('')
-    const [selectedStartMonth, setSelectedStartMonth] = useState('')
-    const [selectedStartYear, setSelectedStartYear] = useState('')
-
-    const [selectedEndDay, setSelectedEndDay] = useState('')
-    const [selectedEndMonth, setSelectedEndMonth] = useState('')
-    const [selectedEndYear, setSelectedEndYear] = useState('')
-
     useEffect(() => {
         const fetchMedications = async () => {
           try {
@@ -148,7 +137,6 @@ const ReminderForm = ({toggleSelection}) => {
                 }}>
                 <SelectList
                     setSelected={(item) => {
-                        setSelectedMedicine(item) 
                         toggleSelection('drug_id', item)
                     }}
                     data={medications}
@@ -168,7 +156,6 @@ const ReminderForm = ({toggleSelection}) => {
                 }}>
                 <SelectList
                     setSelected={(val) => {
-                        setSelectedHoraire(val)
                         toggleSelection('dosage_frequency', val)
                     }}
                     data={fauxhoraire}
@@ -196,7 +183,6 @@ const ReminderForm = ({toggleSelection}) => {
                     <View style={{ width: '32%' }}>
                         <SelectList
                             setSelected={(val) => {
-                                setSelectedStartYear(val)
                                 toggleSelection('start_year', val)
                             }}
                             data={years}
@@ -213,7 +199,6 @@ const ReminderForm = ({toggleSelection}) => {
                     <View style={{ width: '32%' }}>
                         <SelectList
                             setSelected={(val) => {
-                                setSelectedStartMonth(val)
                                 toggleSelection('start_month', val)
                             }}
                             data={months}
@@ -230,7 +215,6 @@ const ReminderForm = ({toggleSelection}) => {
                     <View style={{ width: '32%' }}>
                         <SelectList
                             setSelected={(val) => {
-                                setSelectedStartDay(val)
                                 toggleSelection('start_day', val)
                             }}
                             data={days}
@@ -260,7 +244,6 @@ const ReminderForm = ({toggleSelection}) => {
                     <View style={{ width: '32%' }}>
                         <SelectList
                             setSelected={(val) => {
-                                setSelectedEndYear(val)
                                 toggleSelection('end_year', val)
                             }}
                             data={years}
@@ -277,7 +260,6 @@ const ReminderForm = ({toggleSelection}) => {
                     <View style={{ width: '32%' }}>
                         <SelectList
                             setSelected={(val) => {
-                                setSelectedEndMonth(val)
                                 toggleSelection('end_month', val)
                             }}
                             data={months}
@@ -294,7 +276,6 @@ const ReminderForm = ({toggleSelection}) => {
                     <View style={{ width: '32%' }}>
                         <SelectList
                             setSelected={(val) => {
-                                setSelectedEndDay(val)
                                 toggleSelection('end_day', val)
                             }}
                             data={days}

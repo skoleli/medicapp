@@ -85,7 +85,7 @@ export const addReminder = async (url,token, drugId, dosageFreq, isFasting, star
         dosage_frequency: dosageFreq,
         is_fasting: isFasting,
         start_date: startDate,
-        endDate: endDate,
+        end_date: endDate,
     };
     try {
         const response = await fetch(url, {

@@ -7,9 +7,56 @@ import { MaterialIcons, AntDesign } from '@expo/vector-icons'
 import { medicationInfos } from '../constants/data'
 import MedicationCard from '../components/MedicationCard'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import { Alert } from 'react-native'
 
 const MedicationInfo = ({ navigation }) => {
+    const [activeReminders, setActiveReminders] = useState([])
+    const [reminders, setReminders] = useState([])
+    const [medicines, setMedicines] = useState([])
+
+    useEffect(() => {
+        getRemindersFromStorage()
+        getDrugsFromStorage()
+    }, [])
+
+    const getRemindersFromStorage = async () => {
+        try {
+            const storageData = await AsyncStorage.getItem('reminders')
+            const parsedData = JSON.parse(storageData)
+            const activeRemindersData = parsedData.filter((reminder) => reminder.status === 'ACTIVE')
+
+            setReminders(parsedData)
+            setActiveReminders(activeRemindersData)
+        } catch (error) {
+            Alert.alert('Error getting reminder data, please try again later.')
+            console.log('error getting reminders:', error)
+        }
+    }
+
+    const getDrugsFromStorage = async () =>{
+        try{
+            const storageData = await AsyncStorage.getItem('all_drugs')
+            const parsedData = JSON.parse(storageData)
+
+            setMedicines(parsedData)
+        } catch(error){
+            Alert.alert('Error geting medicine details, please try again later.')
+            console.log('error getting drugs', error)
+        }
+    }
+
+    function lenReminders() {
+        return reminders.length
+    }
+
+
+    function lenActiveReminders() {
+        return activeReminders.length
+    }
+
     function renderHeader() {
         return (
             <View
@@ -47,13 +94,15 @@ const MedicationInfo = ({ navigation }) => {
         return (
             <View>
                 <ScrollView>
-                    {medicationInfos.map((medicationInfo, index) => (
+                    {activeReminders.map((medicationInfo, index) => (
                         <MedicationCard
                             navigation={navigation}
                             key={index}
                             name={medicationInfo.name}
                             description={medicationInfo.description}
-                            parent = 'info'
+                            drug_id={medicationInfo.drug_id}
+                            drugs={medicines}
+                            parent='info'
                         />
                     ))}
                 </ScrollView>
@@ -82,7 +131,7 @@ const MedicationInfo = ({ navigation }) => {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                10
+                                {lenReminders()}
                             </Text>
                             <Text
                                 style={{
@@ -111,7 +160,7 @@ const MedicationInfo = ({ navigation }) => {
                                     fontWeight: 'bold',
                                 }}
                             >
-                                05
+                                {lenActiveReminders()}
                             </Text>
                             <Text
                                 style={{
@@ -135,7 +184,7 @@ const MedicationInfo = ({ navigation }) => {
                             }}
                         >
                             <TouchableOpacity
-                                onPress={() => navigation.navigate('Report')}
+                                onPress={() => navigation.navigate('Report', {reminders: reminders, medicines: medicines})}
                                 style={{
                                     height: 74,
                                     width: 110,
@@ -174,7 +223,7 @@ const MedicationInfo = ({ navigation }) => {
                 <View
                     style={{
                         marginHorizontal: 10,
-                        marginBottom:330
+                        marginBottom: 330
                     }}
                 >
                     {renderHeader()}

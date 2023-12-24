@@ -46,7 +46,11 @@ const AddMedication = ({ navigation }) => {
             const drugId = parseInt(med.drug_id, 10)
             const dosage_frequency = parseInt(med.dosage_frequency, 10)
             const is_fasting = false
+
+            console.log(med)
+
             let start_date = ''
+            let end_date = ''
             if (med.start_month < 10) {
                 if (med.start_day < 10) {
                     start_date = `${med.start_year}-0${med.start_month}-0${med.start_day}`
@@ -62,7 +66,6 @@ const AddMedication = ({ navigation }) => {
 
                 }
             }
-            let end_date = ''
             if (med.end_month < 10) {
                 if (med.end_day < 10) {
                     end_date = `${med.end_year}-0${med.end_month}-0${med.end_day}`
@@ -78,6 +81,10 @@ const AddMedication = ({ navigation }) => {
 
                 }
             }
+
+            console.log('start:', start_date)
+            console.log('end:', end_date)
+
             await addReminder(url, token, drugId, dosage_frequency, is_fasting, start_date, end_date)
 
         } catch (error) {

@@ -4,10 +4,22 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { MaterialIcons, EvilIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
 import { COLORS, FONTS, SIZES } from "../constants";
 import { medDetail } from '../constants/data';
-import React from 'react'
+import React, { useState } from 'react'
+import { useEffect } from 'react';
 
 
-const MedicineDetail = ({ parent, navigation }) => {
+const MedicineDetail = ({route, navigation }) => {
+    const [medDetail, setMedDetail] = useState({})
+    const routeParams = route.params
+
+    useEffect(()=>{
+        const id = routeParams.drug_id
+        const drugs = routeParams.drugs
+        console.log(id)
+        const details = drugs.filter((value)=>value.id === id)
+        console.log(details)
+        setMedDetail(details[0])
+    },[])
 
     function renderHeader() {
         return (
@@ -19,7 +31,7 @@ const MedicineDetail = ({ parent, navigation }) => {
                 }}
             >
                 <TouchableOpacity
-                    onPress={() => parent !== 'info' ? navigation.navigate('Medication Information') : navigation.navigate('Report')}
+                    onPress={() => routeParams.parent === 'info' ? navigation.navigate('Medication Information') : navigation.navigate('Report')}
                     style={{
                         height: 44,
                         width: 44,
