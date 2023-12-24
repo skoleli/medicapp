@@ -47,7 +47,6 @@ const AddMedication = ({ navigation }) => {
             const dosage_frequency = parseInt(med.dosage_frequency, 10)
             const is_fasting = false
 
-            console.log(med)
 
             let start_date = ''
             let end_date = ''
@@ -82,8 +81,6 @@ const AddMedication = ({ navigation }) => {
                 }
             }
 
-            console.log('start:', start_date)
-            console.log('end:', end_date)
 
             await addReminder(url, token, drugId, dosage_frequency, is_fasting, start_date, end_date)
 

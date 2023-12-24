@@ -15,9 +15,7 @@ const MedicineDetail = ({route, navigation }) => {
     useEffect(()=>{
         const id = routeParams.drug_id
         const drugs = routeParams.drugs
-        console.log(id)
         const details = drugs.filter((value)=>value.id === id)
-        console.log(details)
         setMedDetail(details[0])
     },[])
 

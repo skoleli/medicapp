@@ -26,7 +26,6 @@ const Profile = ({ navigation }) => {
     },[])
 
     const getUserInfo = async ()=>{
-        console.log('baris')
         const mail = await AsyncStorage.getItem('email')
         const uname = await AsyncStorage.getItem('username')
         setUsername(uname)
