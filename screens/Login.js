@@ -62,6 +62,9 @@ const Login = ({ navigation }) => {
                 const responseData = await response.json();
                 await AsyncStorage.setItem('token', responseData['token'])
                 await AsyncStorage.setItem('user_id', String(responseData['user_id']))
+                await AsyncStorage.setItem('username', responseData['name'])
+                await AsyncStorage.setItem('email', responseData['email'])
+
                 return true;
             } else {
                 const errorData = response.status

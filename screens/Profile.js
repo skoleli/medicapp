@@ -17,34 +17,22 @@ import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 const Profile = ({ navigation }) => {
-    const [address, setAddress] = useState('Loading...')
-    const [errorMsg, setErrorMsg] = useState(null)
+    const unknown = 'unknown'
+    const [username, setUsername] = useState('')
+    const [email, setEmail] = useState('')
 
-    useEffect(() => {
-        const getPermissions = async () => {
-            let { status } = await Location.requestBackgroundPermissionsAsync()
-            if (status !== 'granted') {
-                setErrorMsg('Permission to access location was denied')
-                return
-            }
+    useEffect(()=>{
+        getUserInfo()
+    },[])
 
-            let location = await Location.getCurrentPositionAsync()
-            const text = JSON.stringify(location)
-            const parsedData = JSON.parse(text)
-            const longitude = parsedData.coords.longitude
-            const latitude = parsedData.coords.latitude
-            let address = await Location.reverseGeocodeAsync({
-                latitude,
-                longitude,
-            })
+    const getUserInfo = async ()=>{
+        console.log('baris')
+        const mail = await AsyncStorage.getItem('email')
+        const uname = await AsyncStorage.getItem('username')
+        setUsername(uname)
+        setEmail(mail)
+    }
 
-            setAddress(
-                `${address[0].name},${address[0].district},${address[0].city}`
-            )
-        }
-
-        getPermissions()
-    }, [])
     function renderHeader() {
         return (
             <View
@@ -86,15 +74,15 @@ const Profile = ({ navigation }) => {
             >   
                 {/* TODO: add user icon */}
                 <Image
-                    source={images.user3} 
+                    source={images.userunknown} 
                     resizeMode="contain"
                     style={{
-                        height: 100,
-                        width: 100,
+                        height: 150,
+                        width: 150,
                         borderRadius: SIZES.padding,
                     }}
                 />
-                <Text style={{ ...FONTS.h2, marginTop: 24 }}> username </Text>
+                <Text style={{ ...FONTS.h2, marginTop: 24 }}> {username} </Text>
                 <View
                     style={{
                         flexDirection: 'row',
@@ -162,11 +150,11 @@ const Profile = ({ navigation }) => {
                     height: 150,
                     
                 }}>
-                    <Text style={{...FONTS.body3}}>isim soy isim</Text>
-                    <Text style={{...FONTS.body3}}>1.1.1999</Text>
-                    <Text style={{...FONTS.body3}}>m@m.com</Text>
-                    <Text style={{...FONTS.body3}}>Female</Text>
-                    <Text style={{...FONTS.body3}}>Peanut, soy beans</Text>
+                    <Text style={{...FONTS.body3}}>{username}</Text>
+                    <Text style={{...FONTS.body3}}>{unknown}</Text>
+                    <Text style={{...FONTS.body3}}>{email}</Text>
+                    <Text style={{...FONTS.body3}}>{unknown}</Text>
+                    <Text style={{...FONTS.body3}}>{unknown}</Text>
                 </View>
 
             </View>

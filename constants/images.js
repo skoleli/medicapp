@@ -10,6 +10,7 @@ const user4 = require('../assets/images/images/users/user4.jpg')
 const user5 = require('../assets/images/images/users/user5.jpg')
 const user6 = require('../assets/images/images/users/user6.jpg')
 const user7 = require('../assets/images/images/users/user7.jpg')
+const userunknown = require('../assets/images/blank-profile-picture.png')
 
 export default {
     hero,
@@ -24,4 +25,5 @@ export default {
     user5,
     user6,
     user7,
+    userunknown
 }
