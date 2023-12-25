@@ -1,15 +1,10 @@
 import { View, Text, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native'
 import PageContainer from '../components/PageContainer'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { COLORS, FONTS, SIZES } from "../constants";
-import Input from '../components/Input';
+import { COLORS, FONTS } from "../constants";
 import Button from '../components/Button'
-import { MaterialIcons, FontAwesome, Fontisto } from '@expo/vector-icons'
-
-import { reducer } from '../utils/reducers/formReducers'
-import { validateInput } from '../utils/actions/formActions'
-import React, { useCallback, useReducer } from 'react'
-import { SelectList } from 'react-native-dropdown-select-list';
+import { MaterialIcons} from '@expo/vector-icons'
+import React from 'react'
 import ReminderForm from '../components/ReminderForm';
 import { useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';

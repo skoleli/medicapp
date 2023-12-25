@@ -1,11 +1,9 @@
 import { View, Text } from "react-native"
 import React, { useState } from "react"
-import { TouchableOpacity, TouchableWithoutFeedback } from "react-native-gesture-handler"
+import { TouchableOpacity } from "react-native-gesture-handler"
 import { COLORS, FONTS, SIZES } from "../constants"
-import { useEffect } from "react"
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { AntDesign } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
-import { intakeList } from "../constants/data"
 import { Alert } from "react-native"
 
 // clockcircleo => AntDesign

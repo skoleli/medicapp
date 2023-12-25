@@ -1,9 +1,8 @@
-import { View, Text, TouchableOpacity, Image, StyleSheet, FlatList, ScrollView } from 'react-native'
+import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import PageContainer from '../components/PageContainer'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { MaterialIcons, EvilIcons, FontAwesome, FontAwesome5 } from '@expo/vector-icons'
-import { COLORS, FONTS, SIZES } from "../constants";
-import { medDetail } from '../constants/data';
+import { MaterialIcons,FontAwesome5 } from '@expo/vector-icons'
+import { COLORS, FONTS } from "../constants";
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 

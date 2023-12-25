@@ -1,8 +1,7 @@
 import { View, Text } from "react-native";
 import React from "react";
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, SIZES } from '../constants'
 import { TouchableOpacity } from "react-native";
-import { FontAwesome5, AntDesign } from '@expo/vector-icons'
 
 const ReportCard = ({ navigation, name, start_date, end_date, frequency, drug_id, drugs }) => {
     return (

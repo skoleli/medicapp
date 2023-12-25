@@ -1,6 +1,6 @@
-import { View,Text, KeyboardAvoidingView, Platform } from "react-native";
+import { KeyboardAvoidingView, Platform } from "react-native";
 import React from "react";
-import {images, COLORS} from '../constants'
+import { COLORS} from '../constants'
 
 
 const PageContainer = (props) => {

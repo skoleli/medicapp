@@ -1,8 +1,8 @@
 import { View, Text, TouchableOpacity, Image, FlatList, ScrollView } from 'react-native'
 import PageContainer from '../components/PageContainer'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { MaterialIcons, EvilIcons } from '@expo/vector-icons'
-import { COLORS, FONTS, SIZES } from "../constants";
+import { MaterialIcons } from '@expo/vector-icons'
+import { COLORS, FONTS } from "../constants";
 import { notifications } from '../constants/data';
 import NotificationCell from '../components/NotificationCell';
 import React from 'react'

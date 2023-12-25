@@ -1,4 +1,4 @@
-import {View,Text, StyleSheet} from 'react-native'
+import {Text, StyleSheet} from 'react-native'
 import React from 'react'
 import {TouchableOpacity} from 'react-native'
 import {COLORS, FONTS, SIZES} from '../constants'

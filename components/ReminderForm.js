@@ -1,16 +1,10 @@
 import { View, Text } from "react-native"
 import { SelectList } from "react-native-dropdown-select-list"
-import Input from "./Input"
-import { COLORS, FONTS, SIZES } from "../constants";
+import { COLORS, FONTS } from "../constants";
 import { StyleSheet } from "react-native";
-import { AntDesign, EvilIcons, FontAwesome5, FontAwesome, Fontisto } from '@expo/vector-icons'
-
-import { reducer } from '../utils/reducers/formReducers'
-import { validateInput } from '../utils/actions/formActions'
-import React, { useCallback, useReducer, useState } from 'react'
+import { AntDesign, FontAwesome5, Fontisto } from '@expo/vector-icons'
+import React, { useState } from 'react'
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import Button from 'react-native';
-import { Calendar, LocaleConfig } from "react-native-calendars";
 import { useEffect } from "react";
 
 

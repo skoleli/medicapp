@@ -4,15 +4,9 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import PageContainer from '../components/PageContainer'
 import {
     MaterialIcons,
-    Feather,
-    EvilIcons,
-    Ionicons,
-    Entypo,
-    MaterialCommunityIcons,
     AntDesign,
 } from '@expo/vector-icons'
 import { COLORS, FONTS, SIZES, icons, images } from '../constants'
-import * as Location from 'expo-location'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
 import AsyncStorage from '@react-native-async-storage/async-storage'
 

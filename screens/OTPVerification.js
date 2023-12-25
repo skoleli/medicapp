@@ -3,7 +3,7 @@ import React from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import PageContainer from '../components/PageContainer'
 import OTPTextInput from 'react-native-otp-textinput'
-import { COLORS, FONTS, SIZES } from '../constants'
+import { COLORS, FONTS } from '../constants'
 import Button from '../components/Button'
 
 const OTPVerification = ({ navigation }) => {

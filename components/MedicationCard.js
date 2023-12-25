@@ -1,7 +1,6 @@
 import { View, Text } from 'react-native'
 import React from 'react'
-import { COLORS, FONTS, SIZES, icons } from '../constants'
-import { Image } from 'react-native'
+import { COLORS, FONTS, SIZES } from '../constants'
 import { TouchableOpacity } from 'react-native'
 import { FontAwesome5 } from '@expo/vector-icons'; // Example: using FontAwesome5 icons
 

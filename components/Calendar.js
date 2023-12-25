@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react'
-import { View, TouchableOpacity, StyleSheet, Text, Platform } from 'react-native'
+import React, { useState } from 'react'
+import { View} from 'react-native'
 import ReactNativeCalendarStrip from 'react-native-calendar-strip'
-import { COLORS, SIZES, FONTS } from '../constants'
+import { COLORS, FONTS } from '../constants'
 
 
 
