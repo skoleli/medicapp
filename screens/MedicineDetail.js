@@ -91,6 +91,10 @@ const MedicineDetail = ({route, navigation }) => {
                         <Text style={styles.tableCell}>Warnings</Text>
                         <Text style={styles.tableCell}>{medDetail.warnings}</Text>
                     </View>
+                    <View style={styles.tableRow}>
+                        <Text style={styles.tableCell}>Equivalents</Text>
+                        <Text style={styles.tableCell}>Ibuprofen, Acetaminophen, Naproxen</Text>
+                    </View>
                     {/* Add more rows as needed */}
                 </View>
             </View>

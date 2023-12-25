@@ -14,23 +14,29 @@ import { useEffect } from "react";
 
 
 const Home = ({ route, navigation }) => {
-    const {triggerReminder} = route.params || {};
+    const { triggerReminder } = route.params || {};
     const [reminders, setReminders] = useState([])
+    const [change, setChange] = useState(true)
     const [activeReminders, setActiveReminders] = useState([])
-    const [nonTakenReminders, setNonTakenReminders] = useState([])
+    const [takenReminders, setTakenReminders] = useState([])
 
     const lenReminders = () => {
         return activeReminders.length
     }
 
     const lenRemindersNonTaken = () => {
-        return nonTakenReminders.length
+        return  takenReminders.length
     }
 
     const toggleTaken = (id, time) => {
-        const updatedReminders = activeReminders.map((reminder) =>
-            reminder.id === id && reminder.time === time ? { ...reminder, taken: !reminder.taken } : reminder
-        );
+        const updatedReminders = activeReminders.map((reminder) => {
+            if (reminder.id === id && reminder.time === time) {
+                console.log('pressed1')
+                reminder.taken = !reminder.taken
+            }
+            setChange(!change)
+            return reminder
+        });
         setReminders(updatedReminders);
     };
 
@@ -48,8 +54,8 @@ const Home = ({ route, navigation }) => {
     useEffect(() => {
         // Filter non-taken reminders only when reminders change
         const nonTakens = activeReminders.filter((reminder) => reminder.taken === true);
-        setNonTakenReminders(nonTakens);
-    }, [activeReminders]); // Add reminders as a dependency
+        setTakenReminders(nonTakens);
+    }, [activeReminders,change]); // Add reminders as a dependency
 
 
     const fetchDataFromStorage = async () => {
@@ -93,14 +99,14 @@ const Home = ({ route, navigation }) => {
                     return baseReminder;
                 });
                 setReminders(editedReminders);
-                setActiveReminders(editedReminders.filter((value)=>value.status==='ACTIVE'))
+                setActiveReminders(editedReminders.filter((value) => value.status === 'ACTIVE'))
             }
         } catch (error) {
             console.error('Error fetching data from AsyncStorage:', error);
         }
     };
 
-   
+
 
     function renderHeader() {
         return (
@@ -153,7 +159,7 @@ const Home = ({ route, navigation }) => {
                 justifyContent: 'space-between'
             }}>
                 <Calendar />
-                <IntakeCircle doneNum={lenRemindersNonTaken()} allNum={lenReminders()} />
+                <IntakeCircle doneNum={lenRemindersNonTaken()} allNum={lenReminders()} changeDone={change} />
                 <View
                     style={{
                         height: "35%",

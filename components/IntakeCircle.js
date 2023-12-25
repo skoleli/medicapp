@@ -6,13 +6,17 @@ import { useState } from "react";
 import { AnimatedCircularProgress } from 'react-native-circular-progress';
 
 
-const IntakeCircle = ({ doneNum, allNum }) => {
+const IntakeCircle = ({ doneNum, allNum, changeDone}) => {
     const [fillValue, setFillValue] = useState(0);
 
     useEffect(() => {
         // Update the fill value when doneNum or allNum changes
-        setFillValue((doneNum / allNum) * 100);
-    }, [doneNum, allNum]);
+        const fillVal=Math.round(doneNum / allNum * 100)
+        setFillValue(fillVal);
+        console.log(changeDone)
+        console.log(fillVal)
+
+    }, [changeDone, doneNum, allNum]);
     return (
         <View style={{
             width: 250,
