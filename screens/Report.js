@@ -14,14 +14,14 @@ import { useState } from 'react'
 
 const Report = ({ route, navigation }) => {
     const [reminders, setReminders] = useState([])
-    const [activeReminders, setActiveReminders] = useState([])
-    const [pausedReminders, setPausedReminders] = useState([])
-
+    const [sortedReminders, setSortedReminders] = useState([])
     const [allMedicines, setallMedicines] = useState([])
     const routeParams = route.params
 
     useEffect(() => {
         const reminders = routeParams.reminders
+        const sorted = [...reminders].sort((a,b)=> a.start_date.localeCompare(b.start_date))
+        setSortedReminders(sorted)
         setReminders(reminders)
         setallMedicines(routeParams.medicines)
     }, [])
@@ -62,7 +62,7 @@ const Report = ({ route, navigation }) => {
             <View>
 
                 <ScrollView>
-                    {reminders.map((medicationInfo, index) => (
+                    {sortedReminders.map((medicationInfo, index) => (
                         <ReportCard
                             navigation={navigation}
                             key={index}

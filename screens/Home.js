@@ -16,10 +16,11 @@ import { useEffect } from "react";
 const Home = ({ route, navigation }) => {
     const {triggerReminder} = route.params || {};
     const [reminders, setReminders] = useState([])
+    const [activeReminders, setActiveReminders] = useState([])
     const [nonTakenReminders, setNonTakenReminders] = useState([])
 
     const lenReminders = () => {
-        return reminders.length
+        return activeReminders.length
     }
 
     const lenRemindersNonTaken = () => {
@@ -27,7 +28,7 @@ const Home = ({ route, navigation }) => {
     }
 
     const toggleTaken = (id, time) => {
-        const updatedReminders = reminders.map((reminder) =>
+        const updatedReminders = activeReminders.map((reminder) =>
             reminder.id === id && reminder.time === time ? { ...reminder, taken: !reminder.taken } : reminder
         );
         setReminders(updatedReminders);
@@ -46,9 +47,9 @@ const Home = ({ route, navigation }) => {
 
     useEffect(() => {
         // Filter non-taken reminders only when reminders change
-        const nonTakens = reminders.filter((reminder) => reminder.taken === true);
+        const nonTakens = activeReminders.filter((reminder) => reminder.taken === true);
         setNonTakenReminders(nonTakens);
-    }, [reminders]); // Add reminders as a dependency
+    }, [activeReminders]); // Add reminders as a dependency
 
 
     const fetchDataFromStorage = async () => {
@@ -92,6 +93,7 @@ const Home = ({ route, navigation }) => {
                     return baseReminder;
                 });
                 setReminders(editedReminders);
+                setActiveReminders(editedReminders.filter((value)=>value.status==='ACTIVE'))
             }
         } catch (error) {
             console.error('Error fetching data from AsyncStorage:', error);
@@ -159,7 +161,7 @@ const Home = ({ route, navigation }) => {
                     }}>
                     <GestureHandlerRootView>
                         <ScrollView>
-                            <IntakeList reminders={reminders} toggleTaken={toggleTaken} />
+                            <IntakeList reminders={activeReminders} toggleTaken={toggleTaken} />
                         </ScrollView>
                     </GestureHandlerRootView>
                 </View>
