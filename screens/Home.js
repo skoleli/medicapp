@@ -31,7 +31,6 @@ const Home = ({ route, navigation }) => {
     const toggleTaken = (id, time) => {
         const updatedReminders = activeReminders.map((reminder) => {
             if (reminder.id === id && reminder.time === time) {
-                console.log('pressed1')
                 reminder.taken = !reminder.taken
             }
             setChange(!change)
