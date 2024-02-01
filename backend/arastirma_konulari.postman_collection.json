@@ -1,0 +1,223 @@
+{
+	"info": {
+		"_postman_id": "3f4f2d4e-82cc-4aca-91db-3692fac2cdd5",
+		"name": "arastirma_konulari",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25504848"
+	},
+	"item": [
+		{
+			"name": "localhost:8010/signup",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"baris\",\"email\":\"baris1@gmail.com\",\"password\":\"1q2w3e4rR\", \"password_confirm\":\"1q2w3e4rR\"}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8010/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"email\":\"baris@gmail.com\",\"password\":\"1q2w3e4rR\"} ",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8010/users/1/all_drugs/table",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDI5MDY5MzksInVzZXJfaWQiOiIxIn0.WJg57z7Qy4A7PVgCIa41lqLQ1SqnQI78PfG1fENCuJ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"search\":\"a\",\n    \"sort\": {\"drug_category_name\":\"asc\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/users/1/all_drugs/table",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"users",
+						"1",
+						"all_drugs",
+						"table"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8010/users/1/drug_categories/table",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDI5MDY5MzksInVzZXJfaWQiOiIxIn0.WJg57z7Qy4A7PVgCIa41lqLQ1SqnQI78PfG1fENCuJ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"search\":\"anti\",\n    \"filters\": [{\"key\":\"id\", \"op\":\"ge\", \"value\":9}],\n    \"sort\":{\"name\":\"desc\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/users/1/drug_categories/table",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"users",
+						"1",
+						"drug_categories",
+						"table"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8010/users/1/drugs",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDI5MDY5MzksInVzZXJfaWQiOiIxIn0.WJg57z7Qy4A7PVgCIa41lqLQ1SqnQI78PfG1fENCuJ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"drug_id\":5,\n    \"dosage_frequency\":2,\n    \"is_fasting\": false,\n    \"start_date\":  \"2023-12-14\",\n    \"end_date\":  \"2024-01-10\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/users/1/drugs",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"users",
+						"1",
+						"drugs"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8010/users/1/drugs/table",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE3MDI5MDY5MzksInVzZXJfaWQiOiIxIn0.WJg57z7Qy4A7PVgCIa41lqLQ1SqnQI78PfG1fENCuJ0",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"page\": 1,\n    \"pageSize\": 10,\n    \"search\":\"a\",\n    \"sort\": {\"drug_category_name\":\"asc\"}\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8010/users/1/drugs/table",
+					"host": [
+						"localhost"
+					],
+					"port": "8010",
+					"path": [
+						"users",
+						"1",
+						"drugs",
+						"table"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
